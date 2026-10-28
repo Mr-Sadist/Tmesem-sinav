@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11. Sınıf Tuzla MESEM Çalışma Portalı</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=Caveat:wght@600&display=swap">
+<style>
+:root[data-theme="dark"]{
+  --bg:#0d0f13;--board:#171a20;--soft:#1e222a;--ink:#eef0f4;--ink2:#aab1bf;--line:#2b303b;
+  --grid:#262b35;--axis:#8b93a3;--blue:#3987e5;--orange:#d95926;--teal:#199e70;--bad:#e66767;
+  --blue-t:#16283f;--orange-t:#3a2218;--teal-t:#12332a;--bad-t:#3b1d1d;--hdr1:#111827;--hdr2:#1e3a8a;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#eef1f5;--board:#fdfdfc;--soft:#f3f5f9;--ink:#14161a;--ink2:#4b5260;--line:#d9dde5;
+  --grid:#e6e9ef;--axis:#6d7586;--blue:#2a78d6;--orange:#eb6834;--teal:#1baf7a;--bad:#d03b3b;
+  --blue-t:#e3eefb;--orange-t:#fdebe3;--teal-t:#dff5ec;--bad-t:#fbe6e6;--hdr1:#0f172a;--hdr2:#1e3a8a;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Nunito",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;display:flex;flex-direction:column;min-height:100vh}
+i{font-family:"Cambria Math","Times New Roman",serif;font-style:italic}
+button{font:inherit;cursor:pointer}
+svg{max-width:100%;height:auto;display:block;margin:0 auto}
+.in{max-width:800px;margin:0 auto;width:100%}
+.top-hdr{background:linear-gradient(135deg,var(--hdr1),var(--hdr2));color:#fff;padding:15px 14px;border-bottom:1px solid var(--line)}
+.hdr-r{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.bdg{display:inline-block;background:#f59e0b;color:#0f172a;font-weight:800;font-size:10.5px;padding:2px 9px;border-radius:99px;margin-bottom:4px}
+.top-hdr h1{font-size:18.5px;font-weight:800;margin-bottom:2px}
+.top-hdr p{font-size:12px;color:#cbd5e1}
+.t-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;border-radius:10px;padding:6px 10px;font-weight:800;font-size:12px;white-space:nowrap}
+.topnav{background:var(--board);padding:8px 12px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.row-s{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none}
+.row-s::-webkit-scrollbar{display:none}
+.nav-i{flex:0 0 auto;padding:7px 13px;border-radius:99px;border:1px solid var(--line);background:var(--soft);color:var(--ink2);font-weight:800;font-size:12.5px}
+.nav-i.active{background:#f59e0b;color:#0f172a;border-color:#f59e0b}
+.wrap{max-width:800px;width:100%;margin:12px auto;padding:0 12px;flex:1}
+.hero{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;border-radius:15px;padding:16px;margin-bottom:12px}
+.hero h2{font-size:18px;font-weight:800;margin-bottom:5px}
+.hero p{font-size:13px;color:#dbeafe;margin-bottom:12px}
+.hbtns{display:flex;flex-wrap:wrap;gap:8px}
+.hbtn{padding:9px 13px;border-radius:9px;border:none;font-weight:800;font-size:12.5px;background:#f59e0b;color:#0f172a}
+.hbtn.alt{background:#fff;color:#1e3a8a}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-bottom:12px}
+.ccard,.crd,.exam-bar,.nav,.empty-box{background:var(--board);border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:11px}
+.ccard{display:flex;flex-direction:column;justify-content:space-between;margin-bottom:0}
+.ccard h3{font-size:15px;font-weight:800;margin:5px 0}
+.ccard p{font-size:12px;color:var(--ink2);margin-bottom:10px}
+.cbtn,.bsm{padding:8px 11px;border-radius:8px;border:1px solid var(--line);background:var(--soft);color:var(--ink);font-weight:800;font-size:12px}
+.cbtn{width:100%}
+.pri{background:var(--blue)!important;color:#fff!important;border-color:var(--blue)!important}
+.lbl{font-size:11px;font-weight:800;color:var(--ink2);text-transform:uppercase;margin-bottom:6px;display:block}
+.ebtn,.tbtn{flex:0 0 auto;padding:7px 12px;border-radius:9px;border:1px solid var(--line);background:var(--soft);color:var(--ink2);font-weight:700;font-size:12px}
+.ebtn.active,.tbtn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.tbtn{border-radius:99px}
+.mod-sw{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:11px}
+.mbtn{padding:10px;border-radius:11px;border:1.5px solid var(--line);background:var(--board);color:var(--ink2);font-weight:800;font-size:12.5px;text-align:center}
+.mbtn.active{background:var(--blue-t);border-color:var(--blue);color:var(--ink)}
+.nav{display:flex;justify-content:space-between;align-items:center}
+.nav span{display:block;font-size:10.5px;font-weight:800;color:var(--blue)}
+.nav h2{font-size:15.5px;font-weight:800}
+.rbox{background:var(--orange-t);border:1px solid var(--orange);border-left:5px solid var(--orange);padding:13px;border-radius:12px;margin-bottom:11px;font-size:13px}
+.rbox h3{font-size:13.5px;font-weight:800;color:var(--orange);margin-bottom:5px}
+.rbox ul{margin:5px 0 7px 17px}
+.tip{background:var(--blue-t);border:1px solid var(--blue);border-left:4px solid var(--blue);padding:8px 11px;border-radius:8px;font-size:12px;margin-top:7px}
+.crd h3{font-size:14px;font-weight:800;margin-bottom:8px;color:var(--blue)}
+.sc{background:var(--soft);border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:8px;padding:9px 11px;margin-bottom:8px;font-size:12.5px}
+.sc:last-child{margin-bottom:0}
+.sh{font-weight:800;color:var(--blue);display:block;margin-bottom:3px}
+.sl{display:block;padding:3px 0;border-bottom:1px dashed var(--line)}
+.sl:last-child{border-bottom:none;padding-bottom:0}
+.mg{background:var(--board);border:1px solid var(--line);border-radius:9px;padding:8px;margin-top:8px;text-align:center}
+.pcrd{background:var(--teal-t);border:1.5px solid var(--teal);border-radius:13px;padding:13px}
+.pbdg{display:inline-block;background:var(--teal);color:#fff;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:99px;margin-bottom:3px}
+.bgen{width:100%;padding:10px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-weight:800;font-size:13px;margin:7px 0 10px}
+.disp,.prmp,.ans-b,.sol{background:var(--board);border:1px solid var(--line);border-radius:9px;padding:11px;margin-bottom:9px}
+.disp{text-align:center}
+.form{display:inline-block;background:var(--blue-t);color:var(--blue);font-weight:800;font-size:18px;padding:5px 14px;border-radius:7px;margin:3px 0}
+.prmp{font-size:13px;font-weight:700}
+.ans-b h4{font-size:11px;font-weight:800;color:var(--blue);margin-bottom:7px}
+.grid{display:grid;gap:7px;margin-bottom:9px}
+.grp label{display:block;font-size:11px;font-weight:700;color:var(--ink2);margin-bottom:2px}
+.grp input,.grp select{width:100%;padding:7px;background:var(--soft);color:var(--ink);border:1.5px solid var(--line);border-radius:7px;font-size:13px;font-weight:700}
+.bchk,.bsol{width:100%;padding:9px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-weight:800;font-size:12.5px}
+.bsol{background:var(--soft);color:var(--ink);border:1px solid var(--line);margin-top:2px}
+.fb{display:none;margin-top:7px;padding:9px;border-radius:7px;font-size:12px;font-weight:700}
+.fb.ok{display:block;background:var(--teal-t);color:var(--teal);border:1px solid var(--teal)}
+.fb.err{display:block;background:var(--bad-t);color:var(--bad);border:1px solid var(--bad)}
+.sol{display:none;margin-top:7px;font-size:12.5px;margin-bottom:0}
+.sol.show{display:block}
+.empty-box{border-style:dashed;padding:24px 16px;text-align:center}
+/* Asal Çarpan Algoritma Çizgisi Tablosu */
+.pf-wrap{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center;margin:6px 0}
+.pf-tbl{border-collapse:collapse;font-family:"Cambria Math",monospace;font-size:15px;font-weight:800;margin:0 auto}
+.pf-tbl td{padding:3px 10px}
+.pf-tbl td:first-child{text-align:right;border-right:2.5px solid var(--orange);color:var(--ink)}
+.pf-tbl td:last-child{text-align:left;color:var(--blue)}
+.pf-step{background:var(--blue-t);border-radius:6px}
+/* Modül 2: Akıllı Tahta Atölye Stilleri */
+.w-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.w-bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-bottom:10px}
+.w-bar i{display:block;height:100%;width:0;background:var(--blue);transition:width .3s}
+.w-stage{display:grid;gap:10px;grid-template-columns:1fr;margin-bottom:10px}
+@media(min-width:650px){.w-stage:not(.solo){grid-template-columns:1.08fr 1fr}}
+.w-card{background:var(--board);border:1.5px solid var(--line);border-radius:15px;padding:13px;overflow:hidden}
+.w-fig{display:grid;place-items:center;padding:8px}
+.w-nav{display:flex;align-items:center;gap:10px}
+.w-nav button{flex:1;height:46px;border-radius:12px;border:1.5px solid var(--line);background:var(--board);color:var(--ink);font-weight:800;font-size:15px}
+.w-nav .wnxt{background:var(--blue);border-color:var(--blue);color:#fff}
+.w-nav button:disabled{opacity:.4;cursor:default}
+.kick{display:inline-block;margin-bottom:5px;padding:2px 9px;border-radius:99px;background:var(--blue-t);color:var(--blue);font-size:11px;font-weight:800;text-transform:uppercase}
+.fm{font-family:"Cambria Math",serif;font-size:22px;margin:4px 0 8px}
+.fm.sm{font-size:19px}
+.tag{display:inline-block;padding:1px 7px;border-radius:7px;font-weight:800}
+.tag.b{background:var(--blue-t);color:var(--blue)}.tag.o{background:var(--orange-t);color:var(--orange)}.tag.t{background:var(--teal-t);color:var(--teal)}
+.w-ans{margin:7px 0;padding:9px 11px;border-radius:10px;background:var(--teal-t);border:1.5px solid var(--teal);font-weight:800}
+.w-warn{margin:7px 0;padding:8px 11px;border-radius:10px;background:var(--orange-t);border:1.5px dashed var(--orange)}
+.w-txt [data-s]:not(.on){display:none}
+svg .gr line{stroke:var(--grid);stroke-width:1}
+svg .axis{stroke:var(--axis);stroke-width:1.7;fill:none}
+svg .arw{fill:var(--axis)}
+svg .tk{fill:var(--ink2);font:700 11.5px "Nunito",sans-serif}
+svg .ax-n{fill:var(--ink2);font:italic 600 14px "Cambria Math",serif}
+svg .ln{fill:none;stroke-width:3.2;stroke-linecap:round}
+svg .dsh{stroke-dasharray:6 5}
+svg .c-b{stroke:var(--blue)}svg .c-o{stroke:var(--orange)}svg .c-t{stroke:var(--teal)}svg .c-g{stroke:var(--axis)}
+svg .f-b{fill:var(--blue)}svg .f-o{fill:var(--orange)}svg .f-t{fill:var(--teal)}
+svg .hole{fill:var(--board);stroke-width:3}
+svg .band{opacity:.28;stroke-linecap:butt}
+svg .lab{font:600 18px "Caveat",cursive;paint-order:stroke;stroke:var(--board);stroke-width:4px}
+svg .lab.b{fill:var(--blue)}svg .lab.o{fill:var(--orange)}svg .lab.t{fill:var(--teal)}svg .lab.k{fill:var(--ink)}
+svg [data-s]{opacity:0;transition:opacity .35s}
+svg [data-s].on{opacity:1}
+.q{margin-bottom:9px}.q>b{display:block;margin-bottom:5px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opt{padding:7px;border-radius:10px;border:1.5px solid var(--line);background:var(--soft);color:var(--ink);font-family:"Cambria Math",serif;font-size:16px;font-weight:700}
+.opt.ok{background:var(--teal-t);border-color:var(--teal)}
+.opt.no{background:var(--bad-t);border-color:var(--bad)}
+.qfb{margin-top:4px;font-size:12.5px;font-weight:700}
+.qfb.ok{color:var(--teal)}.qfb.no{color:var(--bad)}
+.fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.1;font-size:.82em;font-weight:700}
+.fr>span:first-child{border-bottom:2px solid currentColor;padding:0 5px}
+.fr>span:last-child{padding:0 5px}
+input[type=range]{width:100%;height:32px;accent-color:var(--blue)}
+.sum{width:100%;border-collapse:collapse;font-size:13.5px}
+.sum td{padding:6px 4px;border-top:1px solid var(--line)}
+.sum td:first-child{font-weight:800;color:var(--blue);padding-right:8px}
+.ftr{background:var(--board);border-top:1px solid var(--line);padding:8px 12px;margin-top:16px;font-size:11px}
+.acc{background:var(--soft);border:1px solid var(--line);border-left:3px solid #f59e0b;border-radius:7px}
+.acc summary{list-style:none;cursor:pointer;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;color:var(--ink);font-weight:700}
+.acc summary::-webkit-details-marker{display:none}
+.pill{background:var(--teal-t);color:var(--teal);border:1px solid var(--teal);padding:1px 6px;border-radius:99px;font-size:9.5px;font-weight:800;margin-left:5px}
+.acc-b{padding:7px 10px 9px;border-top:1px solid var(--line);color:var(--ink2);font-size:10px;line-height:1.4}
+</style>
+</head>
+<body>
+<header class="top-hdr">
+  <div class="in hdr-r">
+    <div>
+      <span class="bdg">11. SINIF DERS VE SINAV PORTALI</span>
+      <h1>Tuzla MESEM İnteraktif Çalışma Rehberi</h1>
+      <p>Ders Özetleri • Dinamik Soru Üretici • Adım Adım Akıllı Tahta Atölyesi</p>
+    </div>
+    <button class="t-btn" id="thm-btn" onclick="toggleTheme()">☀️ Açık Tema</button>
+  </div>
+</header>
+<nav class="topnav">
+  <div class="in row-s" id="nav-bar"></div>
+</nav>
+<div class="wrap"><main id="main-view"></main></div>
+<footer class="ftr">
+  <div class="in">
+    <details class="acc">
+      <summary>
+        <span>⚖️ Yasal Bilgilendirme & Telif <span class="pill">✓ KVKK Uygundur</span></span>
+        <span style="color:#f59e0b">▸ Detay</span>
+      </summary>
+      <div class="acc-b">
+        <div><strong>• Bağımsız Eğitim Kaynağı:</strong> Tuzla MESEM 11. sınıf öğrencileri için gönüllü, ücretsiz ve bağımsız hazırlanmış yardımcı rehberdir; resmi kurum temsilciliği yoktur.</div>
+        <div><strong>• Telif Hakları:</strong> İçerikler ve dinamik soru/grafik kodları kişisel eğitime açıktır; izinsiz ticari kopyalanması yasaktır.</div>
+        <div><strong>• KVKK:</strong> Hiçbir kişisel veri talep edilmez, toplanmaz ve paylaşılmaz; tüm işlemler cihazınızda anlık çalışır.</div>
+      </div>
+    </details>
+  </div>
+</footer>
+<script>
+const courses=[
+  {id:'home',t:'🏠 Ana Sayfa'},
+  {id:'math',t:'📐 Matematik',desc:'1. Sınav (Fonksiyonlar, Grafik ve Eğim) ve 2. Sınav (Asal Çarpanlar, Pozitif Bölen Sayısı ve Üs Bulma) interaktif modülleri.',rdy:1},
+  {id:'lit',t:'📚 Türk Dili ve Edebiyatı',desc:'Karagöz ve Hacivat özellikleri, oyunun 4 bölümü, Eskici Abdi (Orta Oyunu), fiilimsiler ve iş mektubu şablonu eklenecektir.'},
+  {id:'elec',t:'⚡ Dijital Elektronik',desc:'Sayı sistemleri, lojik kapılar (AND, OR, NOT, NAND, NOR), doğruluk tabloları ve meslek dersi sınav soruları eklenecektir.'}
+];
+let curC='home',curEx=1,curMod=1,curT=0,curT2=0,st={},wIdx=0,wStep=0,pfNum=240,pfStep=99;
+const rInt=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const nInp=(id,ph='Sayı')=>`<input type="text" inputmode="decimal" autocomplete="off" readonly onfocus="this.removeAttribute('readonly')" id="${id}" placeholder="${ph}">`;
+const sc=(h,ls)=>`<div class="sc">${h?`<span class="sh">${h}</span>`:''}${ls.map(l=>`<span class="sl">${l}</span>`).join('')}</div>`;
+const shiftSvg=(aT,bT,yA=55,oy=98,yB=128)=>`<svg viewBox="0 0 320 185">
+  <line x1="20" y1="${oy}" x2="290" y2="${oy}" stroke="var(--axis)" stroke-width="2"/><line x1="138" y1="12" x2="138" y2="175" stroke="var(--axis)" stroke-width="2"/>
+  <line x1="63" y1="${yA+45}" x2="213" y2="${yA-45}" stroke="var(--blue)" stroke-width="2.5"/><circle cx="138" cy="${yA}" r="4" fill="var(--blue)"/>
+  <text x="126" y="${yA+4}" text-anchor="end" font-size="12" font-weight="bold" fill="var(--blue)">${aT}</text><text x="218" y="${yA-40}" font-size="11.5" font-weight="bold" fill="var(--blue)">h(x)=x+a</text>
+  <line x1="63" y1="${oy+45}" x2="213" y2="${oy-45}" stroke="var(--bad)" stroke-width="2.5"/><circle cx="138" cy="${oy}" r="3.5" fill="var(--bad)"/><text x="218" y="${oy-40}" font-size="11.5" font-weight="bold" fill="var(--bad)">f(x)=x</text>
+  <line x1="63" y1="${yB+45}" x2="213" y2="${yB-45}" stroke="var(--orange)" stroke-width="2.5"/><circle cx="138" cy="${yB}" r="4" fill="var(--orange)"/>
+  <text x="126" y="${yB+4}" text-anchor="end" font-size="12" font-weight="bold" fill="var(--orange)">${bT}</text><text x="218" y="${yB-40}" font-size="11.5" font-weight="bold" fill="var(--orange)">g(x)=x-b</text>
+</svg>`;
+
+/* Asal Çarpan Hesaplayıcı ve Dikey Çizgi Tablosu Üretici */
+function getPrimeData(n){
+  let temp=n,steps=[],counts={},primes=[];
+  let d=2;
+  while(temp>1){
+    if(temp%d===0){
+      steps.push({n:temp,p:d,next:temp/d});
+      if(!counts[d]){counts[d]=0;primes.push(d);}
+      counts[d]++;
+      temp=temp/d;
+    }else d++;
+  }
+  const expHtml=primes.map(p=>`${p}<sup>${counts[p]}</sup>`).join(' · ');
+  const pbs=primes.reduce((acc,p)=>acc*(counts[p]+1),1);
+  const pbsFormula=primes.map(p=>`(${counts[p]}+1)`).join(' · ')+' = '+primes.map(p=>counts[p]+1).join(' · ')+` = <strong>${pbs}</strong>`;
+  return {n,steps,counts,primes,expHtml,pbs,pbsFormula};
+}
+function renderPfTable(n,maxStep=99){
+  const d=getPrimeData(n);
+  const vis=Math.min(maxStep,d.steps.length);
+  let rows='';
+  for(let i=0;i<vis;i++){
+    const s=d.steps[i],isLast=(i===vis-1 && maxStep<=d.steps.length);
+    rows+=`<tr class="${isLast?'pf-step':''}"><td>${s.n}</td><td>${s.p}</td></tr>`;
+  }
+  if(vis===d.steps.length) rows+=`<tr><td>1</td><td></td></tr>`;
+  return `<table class="pf-tbl">${rows}</table>`;
+}
+
+const topics=[
+  {s:"1. Fonksiyonda Değer",t:"Fonksiyonda Değer Bulma",
+   r:`<p>Bir <strong>f(x) = ax + b</strong> doğrusal fonksiyonunda parantez içindeki <strong>x</strong> yerine sorulan sayı yazılıp işlem önceliğine göre hesaplanır.</p><ul><li><strong>1. Adım:</strong> Parantez içindeki sayıyı <strong>x</strong> yerine yaz.</li><li><strong>2. Adım:</strong> Önce katsayı ile çarp, sonra sabit sayıyı ekle/çıkar.</li></ul><div class="tip"><strong>💡 Sınav İpucu:</strong> Negatif sayıları parantez içinde yazarak çarp; (-) ile (-)'nin çarpımı (+) olur!</div>`,
+   ex:sc("📌 Örnek: f(x) = 2x + 3 için f(1) ve f(5) değerleri:",["<strong>1. Adım — f(1):</strong> x yerine 1 yazılır &rarr; f(1) = 2 · 1 + 3 = 2 + 3 = <strong>5</strong>","<strong>2. Adım — f(5):</strong> x yerine 5 yazılır &rarr; f(5) = 2 · 5 + 3 = 10 + 3 = <strong>13</strong>"])},
+  {s:"2. Grafikten Okuma",t:"Grafikten Fonksiyon Değeri Okuma",
+   r:`<p>Yatay eksen <strong>x (apsis)</strong>, dikey eksen <strong>y = f(x) (ordinat)</strong> değerlerini gösterir.</p><ul><li><strong>1. Adım:</strong> Parantez içindeki sayıyı yatay eksende (x) bul.</li><li><strong>2. Adım:</strong> Dikey olarak grafiğe git, oradan y eksenine dönüp sayıyı oku.</li></ul><div class="tip"><strong>💡 Sınav İpucu:</strong> Grafik x eksenini hangi sayıda kesiyorsa orada yüksekliği yoktur; <strong>f(x) = 0</strong> olur.</div>`,
+   ex:sc("📌 Örnek Grafik Okuma Basamakları:",["• Yatayda <strong>4</strong>'ten grafiğe çıkıp y eksenine bakınca: <strong>f(4) = 5</strong>","• Yatayda <strong>1</strong>'den aşağı grafiğe inince: <strong>f(1) = -2</strong>","• Yatayda <strong>-4</strong>'ten aşağı grafiğe inince: <strong>f(-4) = -6</strong>"])},
+  {s:"3. Tanım ve Görüntü",t:"Tanım Kümesi, Görüntü Kümesi ve Artan-Azalanlık",
+   r:`<ul><li><strong>a) Tanım Kümesi (x):</strong> Yatay eksende <strong>en sol</strong> ile <strong>en sağ</strong> değer aralığıdır.</li><li><strong>b) Görüntü Kümesi (y):</strong> Dikey eksende <strong>en alt</strong> ile <strong>en üst</strong> değer aralığıdır.</li><li><strong>Parantez:</strong> İçi dolu (●) ise <strong>[ ]</strong>, içi boş (○) ise <strong>( )</strong> kullanılır.</li><li><strong>c) Yön:</strong> Soldan sağa yukarı çıkıyorsa <strong>Artan</strong>, aşağı iniyorsa <strong>Azalan</strong>.</li></ul>`,
+   ex:sc("📌 Örnek: Sol ucu (1, -3) dolu, sağ ucu (5, 6) boş doğru parçası",["• <strong>a) Tanım Kümesi (x):</strong> En sol 1 (dolu [), en sağ 5 (boş )) &rarr; <strong>[1, 5)</strong>","• <strong>b) Görüntü Kümesi (y):</strong> En alt -3 (dolu [), en üst 6 (boş )) &rarr; <strong>[-3, 6)</strong>","• <strong>c) Yönü:</strong> Soldan sağa yükseldiği için <strong>Artan</strong> fonksiyondur."])},
+  {s:"4. Doğru Öteleme",t:"Doğru Grafiğinde Dikey Öteleme (Yukarı / Aşağı)",
+   r:`<p>Orijinden geçen <strong>f(x) = x</strong> doğrusu dikey kaydırıldığında:</p><ul><li><strong>Yukarı Öteleme (h(x) = x + a):</strong> y eksenini <strong>+a</strong> noktasında keser.</li><li><strong>Aşağı Öteleme (g(x) = x - b):</strong> y eksenini <strong>-b</strong> noktasında keser (b pozitif azalış miktarıdır).</li></ul><div class="mg"><span class="lbl">📊 Kural Özeti: Dikey Öteleme Grafiği</span>${shiftSvg('+a','-b')}</div>`,
+   ex:sc("📌 Örnek: h(x) = x + a (y'yi 5'te kesiyor) ve g(x) = x - b (y'yi -2'de kesiyor)",[`<div class="mg" style="margin-bottom:6px"><span class="lbl">📘 Örnek Grafiği (a = 5, b = 2)</span>${shiftSvg('5','-2')}</div>`,"• <strong>1. Adım (a):</strong> Üstteki mavi doğru (h(x)=x+a) 5'e çıktığı için <strong>a = 5</strong>.","• <strong>2. Adım (b):</strong> Alttaki turuncu doğru (g(x)=x-b) -2'ye indiği için <strong>b = 2</strong>.","• <strong>3. Adım (Çarpım):</strong> <strong>a · b = 5 · 2 = 10</strong> bulunur."])},
+  {s:"5. Grafikten Eğim",t:"Grafikten Doğrunun Eğimini Bulma",
+   r:`<div class="disp" style="margin:4px 0;padding:7px"><strong>Eğim (m) = ( ± ) Düşey Uzunluk ÷ Yatay Uzunluk</strong></div><ul><li><strong>Uzunluk:</strong> Eksen sayısı negatif olsa bile uzunluk daima pozitif alınır.</li><li><strong>İşaret:</strong> Soldan sağa <strong>yukarı çıkıyorsa (+)</strong>, <strong>aşağı iniyorsa (-)</strong>.</li></ul>`,
+   ex:sc("📌 Örnekler:",["• <strong>Sağa Yatık (Yukarı Çıkan):</strong> Dikey 3, yatay -4'te kesiyorsa &rarr; Düşey=3, Yatay=4, İşaret=(+) &rarr; <strong>+(3 ÷ 4)</strong>","• <strong>Sola Yatık (Aşağı İnen):</strong> Dikey 4, yatay 3'te kesiyorsa &rarr; Düşey=4, Yatay=3, İşaret=(-) &rarr; <strong>-(4 ÷ 3)</strong>"])},
+  {s:"6. Denklemden Eğim",t:"Denklemden Eğim Bulma ve Sıralama",
+   r:`<p><strong>f(x) = ax + b</strong> denkleminde eğim (<strong>m</strong>), <strong>x'in önündeki katsayıdır (a)</strong>.</p><ul><li>f(x) = 3x + 5 &rarr; <strong>m<sub>f</sub> = 3</strong> | g(x) = -x + 9 &rarr; <strong>m<sub>g</sub> = -1</strong> (gizli -1)</li><li>h(x) = 7 gibi <strong>x terimi olmayan</strong> sabit fonksiyonlarda eğim sıfırdır: <strong>m<sub>h</sub> = 0</strong>.</li></ul>`,
+   ex:sc("📌 Örnek: f(x) = 3x + 5, g(x) = -x + 9 ve h(x) = 7 sıralaması",["• Eğimler: <strong>m<sub>f</sub> = 3</strong>, <strong>m<sub>g</sub> = -1</strong> ve <strong>m<sub>h</sub> = 0</strong>","• Sıralama: 3 &gt; 0 &gt; -1 olduğundan <strong>m<sub>f</sub> &gt; m<sub>h</sub> &gt; m<sub>g</sub></strong> bulunur."])}
+];
+
+/* 1. DÖNEM 2. SINAV: ASAL ÇARPANLAR VE BÖLEN SAYILARI KONULARI (22.10.2026 DEFTER NOTLARI) */
+const topics2=[
+  {s:"1. Tam Analiz (a, b, c, d)",t:"Asal Çarpanlara Ayırma ve Bölen Sayıları (a, b, c, d)",
+   r:`<p>Sınavda bir sayı verilip <strong>a, b, c, d</strong> şıkları sorulduğunda sağ tarafa dikey çizgi çekilerek en küçük asal sayıdan (<strong>2</strong>'den) başlanıp <strong>1</strong> kalana kadar bölme (<strong>÷</strong>) yapılır:</p>
+   <ul>
+     <li><strong>a) Asal çarpanlarına ayırınız:</strong> Çizginin sağındaki asal sayılar üslü biçimde <strong>2<sup>a</sup> · 3<sup>b</sup> · 5<sup>c</sup></strong> olarak yazılır.</li>
+     <li><strong>b) Asal bölenleri nelerdir:</strong> Sadece tabandaki asal sayılar yan yana yazılır (Örn: <strong>2, 3, 5</strong>).</li>
+     <li><strong>c) Pozitif bölen sayısı (PBS) kaçtır:</strong> Üslerin her birine <strong>1 eklenip</strong> birbiriyle çarpılır: <strong>(a + 1) · (b + 1) · (c + 1)</strong>.</li>
+     <li><strong>d) Tam sayı bölenlerinin toplamı nedir:</strong> Her pozitif bölenin negatif karşılığı birbirini sıfırladığı için cevap her zaman <strong>0</strong>'dır. <em>(Not: Tam bölenlerin <strong>sayısı</strong> sorulursa PBS 2 ile çarpılır).</em></li>
+   </ul>`,
+   ex:`<div class="pf-wrap">
+     <div class="mg" style="flex:1;min-width:130px"><span class="lbl">📘 Defter 1: 240 Sayısı</span>${renderPfTable(240)}</div>
+     <div class="mg" style="flex:1;min-width:130px"><span class="lbl">📘 Defter 2: 300 Sayısı</span>${renderPfTable(300)}</div>
+     <div class="mg" style="flex:1;min-width:130px"><span class="lbl">📘 Defter 3: 360 Sayısı</span>${renderPfTable(360)}</div>
+   </div>`
+   +sc("📌 Defterdeki 240 Sayısının Tam Sınav Çözümü:",[
+     "• <strong>a) Asal çarpanlarına ayırınız:</strong> 240 ÷ 2 = 120, 120 ÷ 2 = 60, 60 ÷ 2 = 30, 30 ÷ 2 = 15, 15 ÷ 3 = 5, 5 ÷ 5 = 1 &rarr; <strong>240 = 2<sup>4</sup> · 3<sup>1</sup> · 5<sup>1</sup></strong>",
+     "• <strong>b) Asal bölenleri nelerdir:</strong> Tabandaki asal sayılar &rarr; <strong>2, 3, 5</strong>",
+     "• <strong>c) Pozitif bölen sayısı kaçtır:</strong> Üsler (4, 1, 1) birer artırılıp çarpılır &rarr; (4+1) · (1+1) · (1+1) = <strong>5 · 2 · 2 = 20 tane</strong>",
+     "• <strong>d) Tam sayı bölenlerinin toplamı nedir:</strong> Pozitif ve negatif bölenler birbirini götürür &rarr; <strong>0</strong>"
+   ])
+   +sc("📌 Defterdeki Diğer Örnekler (300, 360 ve 290):",[
+     "• <strong>300 = 2<sup>2</sup> · 3<sup>1</sup> · 5<sup>2</sup></strong> &rarr; Asal bölenler: <strong>2, 3, 5</strong> | PBS = (2+1)·(1+1)·(2+1) = <strong>3 · 2 · 3 = 18</strong>",
+     "• <strong>360 = 2<sup>3</sup> · 3<sup>2</sup> · 5<sup>1</sup></strong> &rarr; Asal bölenler: <strong>2, 3, 5</strong> | PBS = (3+1)·(2+1)·(1+1) = <strong>4 · 3 · 2 = 24</strong>",
+     "• <strong>290 = 2<sup>1</sup> · 5<sup>1</sup> · 29<sup>1</sup></strong> (290 ÷ 2 = 145, 145 ÷ 5 = 29, 29 ÷ 29 = 1) &rarr; Asal bölenler: <strong>2, 5, 29</strong>"
+   ])},
+  {s:"2. Üsleri Bulma (x + y + z)",t:"Asal Çarpanlarda Bilinmeyen Üsleri Bulma (x + y + z)",
+   r:`<p>Sınavda <strong>A = 2<sup>x</sup> · 3<sup>y</sup> · 7<sup>z</sup></strong> şeklinde bir eşitlik verilip <strong>x + y + z</strong> sorulduğunda:</p>
+   <ul>
+     <li><strong>1. Adım:</strong> Verilen sayı dikey algoritma çizgisiyle asal çarpanlarına ayrılır.</li>
+     <li><strong>2. Adım:</strong> Hangi asal sayıdan kaç tane çıktığı sayılarak üsler (<strong>x, y, z</strong>) bulunur ve toplanır.</li>
+   </ul>`,
+   ex:`<div class="mg" style="margin-bottom:8px"><span class="lbl">📘 Defter Örneği: 84 = 2<sup>x</sup> · 3<sup>y</sup> · 7<sup>z</sup></span>${renderPfTable(84)}</div>`
+   +sc("📌 Örnek: 84 = 2<sup>x</sup> · 3<sup>y</sup> · 7<sup>z</sup> ise x + y + z kaçtır?",[
+     "• <strong>1. Adım (Bölme):</strong> 84 ÷ 2 = 42, 42 ÷ 2 = 21, 21 ÷ 3 = 7, 7 ÷ 7 = 1",
+     "• <strong>2. Adım (Üslü Yazım):</strong> İki tane 2, bir tane 3, bir tane 7 olduğu için <strong>84 = 2<sup>2</sup> · 3<sup>1</sup> · 7<sup>1</sup></strong>",
+     "• <strong>3. Adım (Harfler):</strong> <strong>x = 2</strong>, <strong>y = 1</strong> ve <strong>z = 1</strong> bulunur.",
+     "• <strong>4. Adım (Toplam):</strong> x + y + z = 2 + 1 + 1 = <strong>4</strong> bulunur."
+   ])}
+];
+</script>
+<!-- === ORTA NOKTA === -->
+<script>
+function toggleTheme(){
+  const root=document.documentElement,isD=root.getAttribute('data-theme')==='dark';
+  root.setAttribute('data-theme',isD?'light':'dark');
+  document.getElementById('thm-btn').innerHTML=isD?'🌙 Koyu Tema':'☀️ Açık Tema';
+}
+function openMath(ex,mod){curC='math';curEx=ex;curMod=mod;render();window.scrollTo({top:0,behavior:'smooth'});}
+function setC(id){curC=id;render();window.scrollTo({top:0,behavior:'smooth'});}
+
+function render(){
+  document.getElementById('nav-bar').innerHTML=courses.map(c=>`<button class="nav-i ${curC===c.id?'active':''}" onclick="setC('${c.id}')">${c.t}</button>`).join('');
+  const m=document.getElementById('main-view');
+  if(curC==='home'){
+    m.innerHTML=`<div class="hero"><h2>👋 11. Sınıf Çalışma Portalına Hoş Geldin!</h2><p>Matematik dersinin <strong>her iki ayrı sınavı</strong> (1. Sınav: Fonksiyonlar & Eğim ve 2. Sınav: Asal Çarpanlar & Bölen Sayıları) interaktif soru üreticisi ve akıllı tahta atölyesiyle hazır!</p><div class="hbtns"><button class="hbtn" onclick="openMath(1,1)">📐 Mat 1. Sınav (Fonksiyon & Eğim) ▶</button><button class="hbtn alt" onclick="openMath(2,1)">🔢 Mat 2. Sınav (Asal Çarpanlar) ▶</button></div></div>
+    <div class="cgrid">${courses.slice(1).map(c=>`<div class="ccard"><div><span style="display:inline-block;background:${c.rdy?'var(--teal-t);color:var(--teal)':'var(--soft);color:var(--ink2)'};font-size:10px;padding:2px 8px;border-radius:99px;font-weight:800">${c.rdy?'1. ve 2. Sınav Hazır':'Hazırlanıyor'}</span><h3>${c.t}</h3><p>${c.desc}</p></div><button class="cbtn ${c.rdy?'pri':''}" onclick="setC('${c.id}')">${c.rdy?'Matematik Dersini Aç ▶':'Dersi Görüntüle ▶'}</button></div>`).join('')}</div>
+    <div class="crd"><h3>🎯 Portal Nasıl Kullanılır?</h3>${sc("1. Sınav — 📐 Doğrusal Fonksiyonlar, Grafik ve Eğim",["Fonksiyonda değer bulma, grafik okuma, tanım/görüntü kümesi, dikey öteleme ve eğim konularında sınırsız soru üretici + 9 slaytlık akıllı tahta atölyesi."])}${sc("2. Sınav — 🔢 Asal Çarpanlar ve Bölen Sayıları (22.10.2026 Notları)",["240, 300, 360, 290 ve 84 defter örnekleri, a-b-c-d şıklı klasik sınav provası ve adım adım dikey çizgi çeken Canlı Asal Çarpan Tahtası."])}</div>`;
+  } else if(curC==='math'){
+    const exN=['1. Sınav: Fonksiyon & Eğim (Aktif)','2. Sınav: Asal Çarpanlar (Aktif)','2. Dönem 1. Sınav','2. Dönem 2. Sınav'];
+    m.innerHTML=`<div class="exam-bar"><span class="lbl">📐 Matematik Dersi — Sınav Seçimi</span><div class="row-s">${exN.map((n,i)=>`<button class="ebtn ${curEx===i+1?'active':''}" onclick="curEx=${i+1};curMod=1;render()">${i<2?'📝 '+n:'🔒 '+n}</button>`).join('')}</div></div>`
+    +(curEx===1?`<div class="mod-sw"><button class="mbtn ${curMod===1?'active':''}" onclick="curMod=1;render()">🎲 Modül 1: Dinamik Soru Üretici</button><button class="mbtn ${curMod===2?'active':''}" onclick="curMod=2;render()">🎬 Modül 2: Akıllı Tahta Atölyesi</button></div><div id="m-app"></div>`
+    :curEx===2?`<div class="mod-sw"><button class="mbtn ${curMod===1?'active':''}" onclick="curMod=1;render()">🎲 Modül 1: Konu & Sınav Provası</button><button class="mbtn ${curMod===2?'active':''}" onclick="curMod=2;render()">🎬 Modül 2: Canlı Çizgi Algoritması Tahtası</button></div><div id="m-app"></div>`
+    :`<div class="empty-box"><h3>Matematik ${exN[curEx-1]} Hazırlanıyor</h3><p style="font-size:12.5px;color:var(--ink2);margin:8px 0 12px">Bu sınav dönemine ait konular işlendikten sonra eklenecektir.</p><button class="bsm pri" onclick="curEx=1;render()">◀ 1. Sınava Dön</button></div>`);
+    if(curEx===1){if(curMod===1)renderMod1();else renderMod2();}
+    else if(curEx===2){if(curMod===1)renderEx2Mod1();else renderEx2Mod2();}
+  } else {
+    const c=courses.find(x=>x.id===curC);
+    m.innerHTML=`<div class="exam-bar"><span class="lbl">${c.t} — Sınav Dönemi Seçimi</span><div class="row-s"><button class="ebtn active">🔒 1. Dönem 1. Sınav</button><button class="ebtn">🔒 1. Dönem 2. Sınav</button></div></div><div class="empty-box"><h3>${c.t} Bölümü Hazırlanıyor</h3><p style="font-size:12.5px;color:var(--ink2);margin:8px 0 12px">${c.desc}</p><button class="bsm pri" onclick="setC('math')">📐 Matematik Çalışma Modüllerine Git</button></div>`;
+  }
+}
+
+/* === 1. SINAV MODÜL 1 === */
+function renderMod1(){
+  const t=topics[curT];
+  document.getElementById('m-app').innerHTML=`<div class="row-s" style="padding:2px 0 10px">${topics.map((x,i)=>`<button class="tbtn ${curT===i?'active':''}" onclick="curT=${i};renderMod1()">${x.s}</button>`).join('')}</div>
+  <div class="nav"><div><span>1. SINAV • ${curT+1}. KONU</span><h2>${t.t}</h2></div><div style="display:flex;gap:5px">${curT>0?`<button class="bsm" onclick="curT--;renderMod1()">◀ Önceki</button>`:''}${curT<5?`<button class="bsm pri" onclick="curT++;renderMod1()">Sonraki ▶</button>`:''}</div></div>
+  <div class="rbox"><h3>📐 Pratik Yöntem ve Matematiksel Kural</h3>${t.r}</div>
+  <div class="crd"><h3>📘 Örnek Soru ve Adım Adım Çözüm</h3>${t.ex}</div>
+  <div class="pcrd"><span class="pbdg">KENDİN DENE • 1. SINAV PROVASI</span><h3 style="font-size:14.5px;font-weight:800">🎲 Dinamik Grafikli ve Sayılı İnteraktif Soru</h3><button class="bgen" onclick="gen()">🔄 Yeni Soru Üret (Sayıları ve Grafiği Değiştir)</button><div class="disp" id="q-disp"></div><div class="prmp" id="q-prmp"></div><div class="ans-b"><h4>✍️ KENDİ CEVABINI YAZ VE KONTROL ET</h4><div id="q-inp"></div><button class="bchk" onclick="chk()">✅ Cevabımı Kontrol Et</button><div class="fb" id="q-fb"></div></div><button class="bsol" onclick="document.getElementById('q-sol').classList.toggle('show')">👁️ Adım Adım Detaylı Çözümü Göster</button><div class="sol" id="q-sol"></div></div>`;
+  gen();
+}
+
+function gen(){
+  const disp=document.getElementById('q-disp'),prmp=document.getElementById('q-prmp'),inp=document.getElementById('q-inp'),sol=document.getElementById('q-sol'),fb=document.getElementById('q-fb');
+  fb.className='fb'; sol.classList.remove('show');
+  if(curT===0){
+    const a=rInt(2,6),b=rInt(1,9),x1=rInt(1,4),x2=rInt(5,9); st={y1:a*x1+b,y2:a*x2+b};
+    disp.innerHTML=`<div class="lbl">FONKSİYON KURALI</div><div class="form">f(x) = ${a}x + ${b}</div><div style="font-size:13px;font-weight:700">f(${x1}) = ? ve f(${x2}) = ?</div>`;
+    prmp.innerHTML=`Soru: <strong>f(x) = ${a}x + ${b}</strong> fonksiyonu için <strong>f(${x1})</strong> ve <strong>f(${x2})</strong> değerlerini bulunuz.`;
+    inp.innerHTML=`<div class="grid" style="grid-template-columns:1fr 1fr"><div class="grp"><label>f(${x1}) cevabın:</label>${nInp('in1')}</div><div class="grp"><label>f(${x2}) cevabın:</label>${nInp('in2')}</div></div>`;
+    sol.innerHTML=sc(`1. Adım — f(${x1}):`,[`• f(${x1}) = ${a} · ${x1} + ${b} = ${a*x1} + ${b} = <strong>${st.y1}</strong>`])+sc(`2. Adım — f(${x2}):`,[`• f(${x2}) = ${a} · ${x2} + ${b} = ${a*x2} + ${b} = <strong>${st.y2}</strong>`]);
+  } else if(curT===1){
+    const xp=rInt(3,6),yp=rInt(3,7),xn=-rInt(2,5),yn=-rInt(2,6); st={yp,yn};
+    const ox=150,oy=115,s=13,px1=ox+xp*s,py1=oy-yp*s,px2=ox+xn*s,py2=oy-yn*s;
+    disp.innerHTML=`<svg viewBox="0 0 300 215"><line x1="20" y1="${oy}" x2="280" y2="${oy}" stroke="var(--axis)" stroke-width="2"/><line x1="${ox}" y1="15" x2="${ox}" y2="205" stroke="var(--axis)" stroke-width="2"/><line x1="${px1}" y1="${oy}" x2="${px1}" y2="${py1}" stroke="var(--orange)" stroke-dasharray="4,3"/><line x1="${ox}" y1="${py1}" x2="${px1}" y2="${py1}" stroke="var(--orange)" stroke-dasharray="4,3"/><line x1="${px2}" y1="${oy}" x2="${px2}" y2="${py2}" stroke="var(--blue)" stroke-dasharray="4,3"/><line x1="${ox}" y1="${py2}" x2="${px2}" y2="${py2}" stroke="var(--blue)" stroke-dasharray="4,3"/><path d="M ${px2} ${py2} Q ${ox+10} ${oy+18} ${px1} ${py1}" fill="none" stroke="var(--teal)" stroke-width="3"/><circle cx="${px1}" cy="${py1}" r="4.5" fill="var(--orange)"/><circle cx="${px2}" cy="${py2}" r="4.5" fill="var(--blue)"/><text x="${px1}" y="${oy+15}" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--orange)">${xp}</text><text x="${ox-8}" y="${py1+4}" text-anchor="end" font-size="12" font-weight="bold" fill="var(--orange)">${yp}</text><text x="${px2}" y="${oy-6}" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--blue)">${xn}</text><text x="${ox+8}" y="${py2+4}" font-size="12" font-weight="bold" fill="var(--blue)">${yn}</text></svg>`;
+    prmp.innerHTML=`Soru: Grafiğe göre <strong>f(${xp})</strong> ve <strong>f(${xn})</strong> değerleri kaçtır?`;
+    inp.innerHTML=`<div class="grid" style="grid-template-columns:1fr 1fr"><div class="grp"><label>f(${xp}) cevabın:</label>${nInp('in1')}</div><div class="grp"><label>f(${xn}) cevabın:</label>${nInp('in2')}</div></div>`;
+    sol.innerHTML=sc("Grafik Okuma Adımları:",[`• Yatayda <strong>${xp}</strong>'den grafiğe çıkınca: <strong>f(${xp}) = ${yp}</strong>`,`• Yatayda <strong>${xn}</strong>'den grafiğe inince: <strong>f(${xn}) = ${yn}</strong>`]);
+  } else if(curT===2){
+    const x1=rInt(1,2),x2=rInt(4,6),yL=-rInt(2,5),yH=rInt(3,6),inc=Math.random()>.4,lC=Math.random()>.4,rC=!lC;
+    const y1=inc?yL:yH,y2=inc?yH:yL,dom=`${lC?'[':'('}${x1}, ${x2}${rC?']':')'}`,lowC=inc?lC:rC,highC=inc?rC:lC,ran=`${lowC?'[':'('}${yL}, ${yH}${highC?']':')'}`,dir=inc?'Artan':'Azalan';
+    st={dom,ran,dir};
+    const ox=90,oy=115,s=13,px1=ox+x1*s,py1=oy-y1*s,px2=ox+x2*s,py2=oy-y2*s;
+    disp.innerHTML=`<svg viewBox="0 0 300 215"><line x1="20" y1="${oy}" x2="280" y2="${oy}" stroke="var(--axis)" stroke-width="2"/><line x1="${ox}" y1="15" x2="${ox}" y2="205" stroke="var(--axis)" stroke-width="2"/><line x1="${px1}" y1="${oy}" x2="${px1}" y2="${py1}" stroke="var(--orange)" stroke-dasharray="4,3"/><line x1="${ox}" y1="${py1}" x2="${px1}" y2="${py1}" stroke="var(--orange)" stroke-dasharray="4,3"/><line x1="${px2}" y1="${oy}" x2="${px2}" y2="${py2}" stroke="var(--orange)" stroke-dasharray="4,3"/><line x1="${ox}" y1="${py2}" x2="${px2}" y2="${py2}" stroke="var(--orange)" stroke-dasharray="4,3"/><line x1="${px1}" y1="${py1}" x2="${px2}" y2="${py2}" stroke="var(--blue)" stroke-width="3"/><circle cx="${px1}" cy="${py1}" r="5" fill="${lC?'var(--blue)':'var(--board)'}" stroke="var(--blue)" stroke-width="2.5"/><circle cx="${px2}" cy="${py2}" r="5" fill="${rC?'var(--blue)':'var(--board)'}" stroke="var(--blue)" stroke-width="2.5"/><text x="${px1}" y="${y1<0?oy-6:oy+14}" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--ink)">${x1}</text><text x="${px2}" y="${y2<0?oy-6:oy+14}" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--ink)">${x2}</text><text x="${ox-8}" y="${py1+4}" text-anchor="end" font-size="12" font-weight="bold" fill="var(--ink)">${y1}</text><text x="${ox-8}" y="${py2+4}" text-anchor="end" font-size="12" font-weight="bold" fill="var(--ink)">${y2}</text></svg>`;
+    prmp.innerHTML=`Soru: Grafiğin <strong>Tanım kümesini</strong>, <strong>Görüntü kümesini</strong> ve <strong>Yönünü</strong> seçiniz.`;
+    const dO=[`[${x1}, ${x2})`,`(${x1}, ${x2}]`,`[${x1}, ${x2}]`,`(${x1}, ${x2})`],rO=[`[${yL}, ${yH})`,`(${yL}, ${yH}]`,`[${yL}, ${yH}]`,`(${yL}, ${yH})`];
+    inp.innerHTML=`<div class="grid"><div class="grp"><label>a) Tanım Kümesi:</label><select id="in1"><option value="">Seçiniz...</option>${dO.map(o=>`<option value="${o}">${o}</option>`).join('')}</select></div><div class="grp"><label>b) Görüntü Kümesi:</label><select id="in2"><option value="">Seçiniz...</option>${rO.map(o=>`<option value="${o}">${o}</option>`).join('')}</select></div><div class="grp"><label>c) Yönü:</label><select id="in3"><option value="">Seçiniz...</option><option value="Artan">Artan</option><option value="Azalan">Azalan</option></select></div></div>`;
+    sol.innerHTML=sc("Adım Adım Çözüm:",[`• <strong>Tanım (x):</strong> <strong>${dom}</strong>`,`• <strong>Görüntü (y):</strong> <strong>${ran}</strong>`,`• <strong>Yön:</strong> <strong>${dir}</strong>`]);
+  } else if(curT===3){
+    const a=rInt(2,7),b=rInt(2,6),prod=a*b; st={a,b,prod};
+    disp.innerHTML=shiftSvg(a,'-'+b,98-a*6,98,98+b*6);
+    prmp.innerHTML=`Soru: <strong>h(x) = x + a</strong> doğrusu y'yi <strong>${a}</strong>'de, <strong>g(x) = x - b</strong> doğrusu y'yi <strong>-${b}</strong>'de kesmektedir. <strong>a · b</strong> kaçtır?`;
+    inp.innerHTML=`<div class="grid" style="grid-template-columns:1fr 1fr 1fr"><div class="grp"><label>a değeri:</label>${nInp('in1')}</div><div class="grp"><label>b değeri:</label>${nInp('in2')}</div><div class="grp"><label>a · b çarpımı:</label>${nInp('in3')}</div></div>`;
+    sol.innerHTML=sc("Öteleme Çözümü:",[`• <strong>a = ${a}</strong>, <strong>b = ${b}</strong> &rarr; a · b = <strong>${prod}</strong>`]);
+  } else if(curT===4){
+    const d=rInt(2,7); let y=rInt(2,7); if(y===d)y++;
+    const pos=Math.random()>.45,sg=pos?'+':'-',xI=pos?-y:y; st={d,y,sg};
+    const ox=150,oy=135,s=12,px=ox+xI*s,py=oy-d*s,dx=px-ox,dy=py-oy;
+    disp.innerHTML=`<svg viewBox="0 0 300 205"><polygon points="${ox},${oy} ${px},${oy} ${ox},${py}" fill="var(--orange-t)"/><line x1="20" y1="${oy}" x2="280" y2="${oy}" stroke="var(--axis)" stroke-width="2"/><line x1="${ox}" y1="15" x2="${ox}" y2="195" stroke="var(--axis)" stroke-width="2"/><line x1="${ox-dx*.4}" y1="${py-dy*.4}" x2="${px+dx*.4}" y2="${oy+dy*.4}" stroke="var(--teal)" stroke-width="3"/><circle cx="${ox}" cy="${py}" r="4.5" fill="var(--orange)"/><circle cx="${px}" cy="${oy}" r="4.5" fill="var(--blue)"/><text x="${ox+(pos?10:-10)}" y="${py+4}" text-anchor="${pos?'start':'end'}" font-size="13" font-weight="bold" fill="var(--orange)">${d}</text><text x="${px}" y="${oy+17}" text-anchor="middle" font-size="13" font-weight="bold" fill="var(--blue)">${xI}</text></svg>`;
+    prmp.innerHTML=`Soru: Grafikteki doğrunun <strong>eğimi (m)</strong> nedir?`;
+    inp.innerHTML=`<div class="grid" style="grid-template-columns:1fr 1fr 1fr"><div class="grp"><label>İşaret:</label><select id="in1"><option value="+">+ (Artı)</option><option value="-">- (Eksi)</option></select></div><div class="grp"><label>Düşey (Pay):</label>${nInp('in2')}</div><div class="grp"><label>Yatay (Payda):</label>${nInp('in3')}</div></div>`;
+    sol.innerHTML=sc("Eğim Hesaplama:",[`• Düşey = <strong>${d}</strong>, Yatay = <strong>${y}</strong>, İşaret = <strong>(${sg})</strong> &rarr; <strong>${sg}(${d} ÷ ${y})</strong>`]);
+  } else if(curT===5){
+    const mf=rInt(2,8),b1=rInt(1,9),mg=Math.random()>.4?-1:-rInt(2,6),b2=rInt(2,9),c3=rInt(3,12),mh=0,ord='mf > mh > mg';
+    st={mf,mg,mh,ord};
+    disp.innerHTML=`<div style="font-weight:800;color:var(--blue)">f(x) = ${mf}x + ${b1}</div><div style="font-weight:800;color:var(--orange)">g(x) = ${mg===-1?`-x + ${b2}`:`${mg}x + ${b2}`}</div><div style="font-weight:800;color:var(--teal)">h(x) = ${c3}</div>`;
+    prmp.innerHTML=`Soru: Eğimleri (<strong>m<sub>f</sub>, m<sub>g</sub>, m<sub>h</sub></strong>) bulunuz ve sıralayınız.`;
+    inp.innerHTML=`<div class="grid" style="grid-template-columns:1fr 1fr 1fr"><div class="grp"><label>m<sub>f</sub>:</label>${nInp('in1')}</div><div class="grp"><label>m<sub>g</sub>:</label>${nInp('in2')}</div><div class="grp"><label>m<sub>h</sub>:</label>${nInp('in3')}</div></div><div class="grp" style="margin-bottom:9px"><label>Sıralama:</label><select id="in4"><option value="">Seçiniz...</option><option value="mf > mh > mg">mf > mh > mg</option><option value="mf > mg > mh">mf > mg > mh</option><option value="mg > mf > mh">mg > mf > mh</option></select></div>`;
+    sol.innerHTML=sc("Çözüm:",[`• <strong>m<sub>f</sub> = ${mf}</strong>, <strong>m<sub>g</sub> = ${mg}</strong>, <strong>m<sub>h</sub> = 0</strong> &rarr; <strong>m<sub>f</sub> &gt; m<sub>h</sub> &gt; m<sub>g</sub></strong>`]);
+  }
+}
+
+function chk(){
+  const fb=document.getElementById('q-fb'),v1=document.getElementById('in1').value.trim(),v2=document.getElementById('in2').value.trim(),v3=document.getElementById('in3')?.value.trim(),v4=document.getElementById('in4')?.value;
+  let ok=false;
+  if(curT===0) ok=(parseInt(v1,10)===st.y1 && parseInt(v2,10)===st.y2);
+  else if(curT===1) ok=(parseInt(v1,10)===st.yp && parseInt(v2,10)===st.yn);
+  else if(curT===2) ok=(v1===st.dom && v2===st.ran && v3===st.dir);
+  else if(curT===3) ok=(parseInt(v1,10)===st.a && parseInt(v2,10)===st.b && parseInt(v3,10)===st.prod);
+  else if(curT===4) ok=(v1===st.sg && parseInt(v2,10)===st.d && parseInt(v3,10)===st.y);
+  else if(curT===5) ok=(parseInt(v1,10)===st.mf && parseInt(v2,10)===st.mg && parseInt(v3,10)===st.mh && v4===st.ord);
+  fb.className=ok?'fb ok':'fb err';
+  fb.innerHTML=ok?'🎉 Tebrikler! Tüm cevapların tamamen doğru!':'⚠️ Bazı kutucuklar hatalı veya eksik. Alttaki detaylı çözümden kontrol edebilirsin.';
+}
+
+/* === 2. SINAV (ASAL ÇARPANLAR VE BÖLEN SAYILARI) MODÜL 1 & MODÜL 2 === */
+function renderEx2Mod1(){
+  const t=topics2[curT2];
+  document.getElementById('m-app').innerHTML=`<div class="row-s" style="padding:2px 0 10px">${topics2.map((x,i)=>`<button class="tbtn ${curT2===i?'active':''}" onclick="curT2=${i};renderEx2Mod1()">${x.s}</button>`).join('')}</div>
+  <div class="nav"><div><span>2. SINAV (22.10.2026) • ${curT2+1}. SORU TİPİ</span><h2>${t.t}</h2></div><div style="display:flex;gap:5px">${curT2>0?`<button class="bsm" onclick="curT2--;renderEx2Mod1()">◀ Önceki</button>`:''}${curT2<1?`<button class="bsm pri" onclick="curT2++;renderEx2Mod1()">Sonraki ▶</button>`:''}</div></div>
+  <div class="rbox"><h3>📐 Pratik Yöntem ve Sınav Kuralları</h3>${t.r}</div>
+  <div class="crd"><h3>📘 Defterdeki Örnekler ve Adım Adım Çözüm</h3>${t.ex}</div>
+  <div class="pcrd"><span class="pbdg">KENDİN DENE • 2. SINAV PROVASI</span><h3 style="font-size:14.5px;font-weight:800">🎲 Dinamik Asal Çarpan ve Bölen Sorusu</h3><button class="bgen" onclick="gen2()">🔄 Yeni Soru Üret (Sayıyı Değiştir)</button><div class="disp" id="q2-disp"></div><div class="prmp" id="q2-prmp"></div><div class="ans-b"><h4>✍️ KENDİ CEVABINI YAZ VE KONTROL ET</h4><div id="q2-inp"></div><button class="bchk" onclick="chk2()">✅ Cevabımı Kontrol Et</button><div class="fb" id="q2-fb"></div></div><button class="bsol" onclick="document.getElementById('q2-sol').classList.toggle('show')">👁️ Çizgi Algoritmasını ve Detaylı Çözümü Göster</button><div class="sol" id="q2-sol"></div></div>`;
+  gen2();
+}
+
+function gen2(){
+  const disp=document.getElementById('q2-disp'),prmp=document.getElementById('q2-prmp'),inp=document.getElementById('q2-inp'),sol=document.getElementById('q2-sol'),fb=document.getElementById('q2-fb');
+  fb.className='fb'; sol.classList.remove('show');
+  if(curT2===0){
+    const pool=[120,150,180,200,240,270,300,360,420,90];
+    const n=pool[rInt(0,pool.length-1)];
+    const d=getPrimeData(n);
+    st={n,d,pStr:d.primes.join(',')};
+    disp.innerHTML=`<div class="lbl">ANALİZ EDİLECEK SAYI</div><div class="form">${n} Sayısı</div><div style="font-size:12.5px;font-weight:700">a) Üslü Çarpanları • b) Asal Bölenleri • c) PBS • d) Tam Bölenler Toplamı</div>`;
+    prmp.innerHTML=`Soru: <strong>${n}</strong> sayısının:<br>a) Asal çarpanlarına ayrılmış üslü biçimini,<br>b) Asal bölenlerini,<br>c) Pozitif bölen sayısını (PBS),<br>d) Tam sayı bölenlerinin toplamını bulunuz.`;
+    const fake1=d.primes.map((p,i)=> `${p}<sup>${i===0?d.counts[p]+1:d.counts[p]}</sup>`).join(' · ');
+    const fake2=d.primes.map((p,i)=> `${p}<sup>${i===1?d.counts[p]+1:Math.max(1,d.counts[p]-1)}</sup>`).join(' · ');
+    const opts=[d.expHtml,fake1,fake2].sort(()=>Math.random()-.5);
+    inp.innerHTML=`<div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="grp"><label>a) Asal çarpanlarına ayrılışı:</label><select id="in2_1"><option value="">Seçiniz...</option>${opts.map(o=>`<option value="${o}">${o.replace(/<sup>/g,'^').replace(/<\/sup>/g,'')}</option>`).join('')}</select></div>
+      <div class="grp"><label>b) Asal bölenleri (virgülle):</label>${nInp('in2_2','Örn: 2,3,5')}</div>
+      <div class="grp"><label>c) Pozitif bölen sayısı (PBS):</label>${nInp('in2_3','Örn: 20')}</div>
+      <div class="grp"><label>d) Tam bölenler toplamı:</label>${nInp('in2_4','Örn: 0')}</div>
+    </div>`;
+    sol.innerHTML=`<div class="mg" style="margin-bottom:8px"><span class="lbl">${n} Sayısının Algoritma Çizgisi</span>${renderPfTable(n)}</div>`
+    +sc(`Adım Adım ${n} Sayısının Çözümü:`,[
+      `• <strong>a) Asal çarpanlarına ayırınız:</strong> <strong>${n} = ${d.expHtml}</strong>`,
+      `• <strong>b) Asal bölenleri:</strong> <strong>${d.primes.join(', ')}</strong>`,
+      `• <strong>c) Pozitif bölen sayısı (PBS):</strong> Üsler birer artırılıp çarpılır &rarr; ${d.pbsFormula}`,
+      `• <strong>d) Tam sayı bölenleri toplamı:</strong> <strong>0</strong> (Tam bölen sayısı sorulsaydı 2 · ${d.pbs} = ${2*d.pbs} olurdu)`
+    ]);
+  } else {
+    const p3List=[7,5,11],p3=p3List[rInt(0,2)],x=rInt(1,3),y=rInt(1,2),z=1;
+    const n=Math.pow(2,x)*Math.pow(3,y)*Math.pow(p3,z),sum=x+y+z;
+    st={n,x,y,z,sum,p3};
+    disp.innerHTML=`<div class="lbl">ÜSLÜ ASAL ÇARPAN EŞİTLİĞİ</div><div class="form">${n} = 2<sup>x</sup> · 3<sup>y</sup> · ${p3}<sup>z</sup></div><div style="font-size:13px;font-weight:700">x + y + z = ?</div>`;
+    prmp.innerHTML=`Soru: <strong>${n} = 2<sup>x</sup> · 3<sup>y</sup> · ${p3}<sup>z</sup></strong> olduğuna göre <strong>x, y, z</strong> değerlerini ve <strong>x + y + z</strong> toplamını bulunuz.`;
+    inp.innerHTML=`<div class="grid" style="grid-template-columns:1fr 1fr 1fr 1fr">
+      <div class="grp"><label>x (2'nin üssü):</label>${nInp('in2_1')}</div>
+      <div class="grp"><label>y (3'ün üssü):</label>${nInp('in2_2')}</div>
+      <div class="grp"><label>z (${p3}'in üssü):</label>${nInp('in2_3')}</div>
+      <div class="grp"><label>x + y + z:</label>${nInp('in2_4')}</div>
+    </div>`;
+    sol.innerHTML=`<div class="mg" style="margin-bottom:8px"><span class="lbl">${n} Sayısının Algoritma Çizgisi</span>${renderPfTable(n)}</div>`
+    +sc("Adım Adım Üs Bulma Çözümü:",[
+      `• <strong>1. Adım:</strong> Çizgi algoritmasıyla ayrıldığında <strong>${n} = 2<sup>${x}</sup> · 3<sup>${y}</sup> · ${p3}<sup>${z}</sup></strong> bulunur.`,
+      `• <strong>2. Adım:</strong> Eşitlikten <strong>x = ${x}</strong>, <strong>y = ${y}</strong> ve <strong>z = ${z}</strong> olur.`,
+      `• <strong>3. Adım:</strong> x + y + z = ${x} + ${y} + ${z} = <strong>${sum}</strong> bulunur.`
+    ]);
+  }
+}
+
+function chk2(){
+  const fb=document.getElementById('q2-fb'),v1=document.getElementById('in2_1').value.trim(),v2=document.getElementById('in2_2').value.replace(/\s+/g,''),v3=document.getElementById('in2_3').value.trim(),v4=document.getElementById('in2_4').value.trim();
+  let ok=false;
+  if(curT2===0){
+    ok=(v1===st.d.expHtml && v2===st.pStr && parseInt(v3,10)===st.d.pbs && parseInt(v4,10)===0);
+  } else {
+    ok=(parseInt(v1,10)===st.x && parseInt(v2,10)===st.y && parseInt(v3,10)===st.z && parseInt(v4,10)===st.sum);
+  }
+  fb.className=ok?'fb ok':'fb err';
+  fb.innerHTML=ok?'🎉 Harika! Tüm şıkları eksiksiz ve doğru çözdün!':'⚠️ Bazı kutucuklar hatalı veya eksik. Alttaki Çizgi Algoritması ve Detaylı Çözüm butonuna basarak kontrol edebilirsin.';
+}
+
+/* 2. SINAV MODÜL 2: CANLI ÇİZGİ ALGORİTMASI TAHTASI */
+function setPfPreset(n){pfNum=n;pfStep=1;renderEx2Mod2();}
+function renderEx2Mod2(){
+  const d=getPrimeData(pfNum),tot=d.steps.length+1;
+  if(pfStep>tot) pfStep=tot;
+  const curS=d.steps[pfStep-1];
+  document.getElementById('m-app').innerHTML=`
+    <div class="crd">
+      <h3>🎬 Canlı Asal Çarpan Algoritması ve Bölen Analiz Tahtası</h3>
+      <p style="font-size:12.5px;color:var(--ink2);margin-bottom:8px">Defterdeki hazır sayılara tıkla veya kendi sayını yaz; <strong>Sonraki Adım ›</strong> tuşuyla bölme çizgisini adım adım tahtada çizdir!</p>
+      <div class="row-s" style="margin-bottom:10px">
+        <button class="bsm ${pfNum===240?'pri':''}" onclick="setPfPreset(240)">📘 240 (Defter)</button>
+        <button class="bsm ${pfNum===300?'pri':''}" onclick="setPfPreset(300)">📘 300 (Defter)</button>
+        <button class="bsm ${pfNum===360?'pri':''}" onclick="setPfPreset(360)">📘 360 (Defter)</button>
+        <button class="bsm ${pfNum===290?'pri':''}" onclick="setPfPreset(290)">📘 290 (Defter)</button>
+        <button class="bsm ${pfNum===84?'pri':''}" onclick="setPfPreset(84)">📘 84 (Üs Sorusu)</button>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input type="number" id="custom-pf" value="${pfNum}" min="2" max="9999" style="width:110px;padding:7px;border-radius:8px;border:1.5px solid var(--line);background:var(--soft);color:var(--ink);font-weight:800">
+        <button class="bsm pri" onclick="const v=parseInt(document.getElementById('custom-pf').value,10);if(v>1&&v<10000)setPfPreset(v)">✏️ Sayıyı Tahtaya Yaz</button>
+        <button class="bsm" onclick="pfStep=${tot};renderEx2Mod2()">👁️ Tümünü Göster</button>
+      </div>
+    </div>
+    <div class="w-bar"><i style="width:${(pfStep/tot)*100}%"></i></div>
+    <div class="w-stage">
+      <div class="w-card w-fig" style="min-height:220px">
+        <div>
+          <span class="lbl" style="text-align:center">${pfNum} SAYISININ ÇİZGİ ALGORİTMASI</span>
+          ${renderPfTable(pfNum,pfStep)}
+        </div>
+      </div>
+      <div class="w-card">
+        <span class="kick">Adım ${pfStep} / ${tot}</span>
+        ${pfStep<tot
+          ?`<h3>${pfStep}. Bölme Adımı</h3>
+             <div class="fm">${curS.n} ÷ ${curS.p} = ${curS.next}</div>
+             <p>${curS.n} sayısı en küçük asal böleni olan <span class="tag b">${curS.p}</span> sayısına bölünür, sol alt satıra <b>${curS.next}</b> yazılır.</p>`
+          :`<h3>✅ Algoritma Tamamlandı (Sonuç 1)</h3>
+             <div class="w-ans">a) ${pfNum} = ${d.expHtml}</div>
+             <p style="margin:6px 0"><b>b) Asal Bölenleri:</b> <span class="tag b">${d.primes.join(', ')}</span></p>
+             <p style="margin:6px 0"><b>c) Pozitif Bölen Sayısı (PBS):</b><br>Üsler 1 artırılıp çarpılır: ${d.pbsFormula} tane</p>
+             <p style="margin:6px 0"><b>d) Tam Sayı Bölenleri Toplamı:</b> <span class="tag o">0</span> (Tam bölen sayısı: 2 · ${d.pbs} = <b>${2*d.pbs}</b>)</p>`
+        }
+      </div>
+    </div>
+    <div class="w-nav">
+      <button onclick="if(pfStep>1){pfStep--;renderEx2Mod2()}" ${pfStep<=1?'disabled':''}>‹ Önceki Adım</button>
+      <span style="font-weight:800;color:var(--ink2)">Adım ${pfStep} / ${tot}</span>
+      <button class="wnxt" onclick="if(pfStep<${tot}){pfStep++;renderEx2Mod2()}" ${pfStep>=tot?'disabled':''}>Sonraki Adım ›</button>
+    </div>`;
+}
+
+/* === 1. SINAV MODÜL 2: CLAUDE AKILLI TAHTA ATÖLYESİ === */
+const M=s=>s.replace(/(^|[^A-Za-zÀ-ɏ<\/&#;])([a-z])(?![A-Za-zÀ-ɏ>])/g,'$1<i>$2</i>');
+const S=s=>(s==null?'':` data-s="${s}"`);
+const f1=v=>Math.round(v*100)/100;
+const FR=(a,b)=>`<span class="fr"><span>${a}</span><span>${b}</span></span>`;
+const range=(a,b,s)=>{const r=[];for(let v=a;v<=b+1e-9;v+=s)r.push(Math.round(v*1000)/1000);return r};
+function plane(o){
+  const W=o.w||350,H=o.h||255,p={l:26,r:18,t:16,b:26};
+  const [x0,x1]=o.x,[y0,y1]=o.y,sx=o.sx||1,sy=o.sy||1;
+  const X=v=>f1(p.l+(v-x0)/(x1-x0)*(W-p.l-p.r)),Y=v=>f1(H-p.b-(v-y0)/(y1-y0)*(H-p.t-p.b));
+  const tx=o.tx||range(Math.ceil(x0/sx)*sx,x1,sx).filter(v=>v),ty=o.ty||range(Math.ceil(y0/sy)*sy,y1,sy).filter(v=>v);
+  let g='';
+  for(const v of range(Math.ceil(x0/sx)*sx,x1,sx))g+=`<line x1="${X(v)}" y1="${Y(y0)}" x2="${X(v)}" y2="${Y(y1)}"/>`;
+  for(const v of range(Math.ceil(y0/sy)*sy,y1,sy))g+=`<line x1="${X(x0)}" y1="${Y(v)}" x2="${X(x1)}" y2="${Y(v)}"/>`;
+  const ax=`<path class="axis" d="M${X(x0)} ${Y(0)}H${X(x1)-2}M${X(0)} ${Y(y0)}V${Y(y1)+2}"/><path class="arw" d="M${X(x1)+2} ${Y(0)}l-8 -4v8zM${X(0)} ${Y(y1)-2}l-4 8h8z"/>`;
+  let t='';
+  for(const v of tx)t+=`<text class="tk" x="${X(v)}" y="${Y(0)+14}" text-anchor="middle">${String(v).replace("-","−")}</text>`;
+  for(const v of ty)t+=`<text class="tk" x="${X(0)-6}" y="${Y(v)+4}" text-anchor="end">${String(v).replace("-","−")}</text>`;
+  t+=`<text class="tk" x="${X(0)-6}" y="${Y(0)+14}" text-anchor="end">O</text><text class="ax-n" x="${X(x1)-2}" y="${Y(0)-7}" text-anchor="end">x</text><text class="ax-n" x="${X(0)+7}" y="${Y(y1)+11}">y</text>`;
+  const d=(a,b)=>`${X(a)} ${Y(b)}`;
+  return {
+    X,Y,
+    L:(a,b,c,e,cls,s)=>`<path class="ln ${cls}" d="M${d(a,b)}L${d(c,e)}"${S(s)}/>`,
+    D:(a,b,cls,s)=>`<circle class="${cls}" cx="${X(a)}" cy="${Y(b)}" r="5.5"${S(s)}/>`,
+    O:(a,b,cls,s)=>`<circle class="hole ln ${cls}" cx="${X(a)}" cy="${Y(b)}" r="5.5"${S(s)}/>`,
+    T:(a,b,txt,cls,s,anc)=>`<text class="lab ${cls}" x="${X(a)}" y="${Y(b)}" text-anchor="${anc||'middle'}"${S(s)}>${txt}</text>`,
+    Z:(a,b,c,e,cls,s)=>`<path class="ln dsh ${cls}" style="stroke-width:2" d="M${d(a,b)}L${d(c,e)}"${S(s)}/>`,
+    B:(a,b,c,e,cls,s)=>`<path class="ln band ${cls}" style="stroke-width:8" d="M${d(a,b)}L${d(c,e)}"${S(s)}/>`,
+    svg:inner=>`<svg viewBox="0 0 ${W} ${H}"><g class="gr">${g}</g>${ax}${t}${inner}</svg>`
+  };
+}
+const QZ={};
+function quiz(id,q,opts,a,why){
+  QZ[id]={a,why};
+  return `<div class="q" data-q="${id}"><b>${q}</b><div class="opts">${opts.map((o,k)=>`<button class="opt" onclick="ansQ('${id}',${k},this)">${o}</button>`).join('')}</div><div class="qfb" id="fb-${id}"></div></div>`;
+}
+function ansQ(id,k,btn){
+  const d=QZ[id],fb=document.getElementById('fb-'+id);
+  if(k===d.a){btn.classList.add('ok');fb.className='qfb ok';fb.innerHTML='✓ Doğru! '+d.why;}
+  else{btn.classList.add('no');fb.className='qfb no';fb.textContent='✗ Tekrar dene.';}
+}
+
+const P11=plane({x:[-3,8],y:[-3,16],tx:[1,5],ty:[5,13]}),P12=plane({x:[-4,7],y:[-5,16],sy:2,ty:[-4,4,8,12,16]}),P2=plane({x:[-6,6],y:[-8,7],tx:[-4,1,3,4],ty:[-6,-4,-2,5]}),P3=plane({x:[-2,8],y:[-5,8],tx:[1,5],ty:[-3,6]}),P4=plane({x:[-6,6],y:[-5,8],tx:[],ty:[]}),P5=plane({x:[-6,3],y:[-2,5],tx:[-4],ty:[3]});
+const nl=v=>36+v*46,nx=v=>40+(v+2)*44;
+
+const SL=[
+  {t:'1 · Fonksiyonda Değer',title:'x yerine sayıyı yaz',n:2,
+   fig:()=>P11.svg(P11.L(-3,-3,6.5,16,'c-b')+P11.Z(1,0,1,5,'c-o',1)+P11.Z(1,5,0,5,'c-o',1)+P11.D(1,5,'f-o',1)+P11.T(1.4,3.2,'f(1)=5','o',1,'start')+P11.Z(5,0,5,13,'c-o',2)+P11.Z(5,13,0,13,'c-o',2)+P11.D(5,13,'f-o',2)+P11.T(5.3,11,'f(5)=13','o',2,'start')),
+   txt:()=>`<span class="kick">Konu 1</span><h3>Kuraldaki x'in yerine sayıyı yaz</h3><div class="fm">${M('f(x) = 2x + 3')}</div><div data-s="1"><p><b>f(1)</b> için x yerine <span class="tag o">1</span> yaz:</p><div class="w-ans">${M('f(1) = 2·1 + 3 = 5')}</div></div><div data-s="2"><p><b>f(5)</b> için x yerine <span class="tag o">5</span> yaz:</p><div class="w-ans">${M('f(5) = 2·5 + 3 = 13')}</div></div>`},
+  {t:'1 · Canlı Simülasyon',title:'x\'i kaydır ve izle',n:0,
+   fig:()=>P12.svg(P12.L(-4,-5,6.5,16,'c-b')+`<path id="sv" class="ln dsh c-o" style="stroke-width:2"/><path id="sh" class="ln dsh c-o" style="stroke-width:2"/><circle id="sp" r="6.5" class="f-o"/><text id="stx" class="lab o"></text>`),
+   txt:()=>`<span class="kick">Canlı Dene</span><h3>Sayıyı değiştir, noktayı izle</h3><div class="fm" id="eq"></div><input type="range" id="sl" min="-3" max="6" step="1" value="2" oninput="updSl(this.value)"><div class="w-warn">x her <b>1</b> artınca f(x) hep <b>2</b> artar (Eğim = 2).</div>`
+   +quiz('q1',M('f(x) = 3x − 1 ise f(4) = ?'),['7','11','12','13'],1,M('3·4 − 1 = 11'))},
+  {t:'2 · Grafikten Okuma',title:'f(4) ve f(−4) kaçtır?',n:3,
+   fig:()=>P2.svg(`<path class="ln c-b" d="M${P2.X(-4)} ${P2.Y(-6)} Q ${P2.X(1)} ${P2.Y(-2)} ${P2.X(4)} ${P2.Y(5)}"/>`+P2.D(4,0,'f-o',1)+P2.Z(4,0,4,5,'c-o',1)+P2.D(4,5,'f-o',1)+P2.Z(4,5,0,5,'c-o',2)+P2.D(0,5,'f-t',2)+P2.T(0.6,5.5,'f(4)=5','t',2,'start')+P2.Z(-4,0,-4,-6,'c-o',3)+P2.Z(-4,-6,0,-6,'c-o',3)+P2.D(-4,-6,'f-t',3)+P2.T(0.6,-6.5,'f(−4)=−6','t',3,'start')),
+   txt:()=>`<span class="kick">Konu 2</span><h3>Grafikten değer oku</h3><p>Parantez içi <b>x</b> eksenindedir, sonuç <b>y</b> eksenindedir.</p><div data-s="1"><p><span class="tag o">1</span> x ekseninde <b>4</b>'ten grafiğe çık.</p></div><div data-s="2"><p><span class="tag o">2</span> y eksenine dönüp oku: <b>f(4) = 5</b></p></div><div data-s="3"><p><span class="tag t">3</span> x'te <b>−4</b>'ten aşağı inip y'yi oku: <b>f(−4) = −6</b></p></div>`},
+  {t:'3 · Parantez Kuralı',title:'Sayı Doğrusunda Dolu / Boş',n:2,
+   fig:()=>`<svg viewBox="0 0 350 220"><path class="axis" d="M18 130H330"/><path class="arw" d="M336 130l-8 -4v8z"/>${[0,1,2,3,4,5,6].map(v=>`<path class="axis" d="M${nl(v)} 124v12"/><text class="tk" x="${nl(v)}" y="152" text-anchor="middle">${v}</text>`).join('')}<path class="ln band c-o" style="stroke-width:10" d="M${nl(1)} 130H${nl(5)}" data-s="2"/><circle class="f-o" cx="${nl(1)}" cy="130" r="8" data-s="1"/><text class="lab o" x="${nl(1)}" y="180" text-anchor="middle" data-s="1">dolu [</text><circle class="hole ln c-o" cx="${nl(5)}" cy="130" r="8" data-s="2"/><text class="lab o" x="${nl(5)}" y="180" text-anchor="middle" data-s="2">boş )</text><text class="lab t" x="175" y="55" text-anchor="middle" style="font-size:32px" data-s="2">[1, 5)</text></svg>`,
+   txt:()=>`<span class="kick">Konu 3 · Sayı Doğrusu</span><h3>Uç nokta kümeye dahil mi?</h3><div data-s="1"><p><span class="tag o">● Dolu</span> nokta: sayı <b>dahil</b> &rarr; köşeli parantez <b>[ ]</b></p></div><div data-s="2"><p><span class="tag o">○ Boş</span> nokta: <b>dahil değil</b> &rarr; normal parantez <b>( )</b> &rarr; <b>[1, 5)</b></p></div>`},
+  {t:'3 · Tanım ve Görüntü',title:'Grafikten kümeleri yaz',n:3,
+   fig:()=>P3.svg(P3.L(1,-3,5,6,'c-b')+P3.D(1,-3,'f-b')+P3.O(5,6,'c-b')+P3.B(1,0,5,0,'c-o',1)+P3.Z(1,-3,1,0,'c-o',1)+P3.Z(5,6,5,0,'c-o',1)+P3.T(5.3,1.5,'[1, 5)','o',1,'start')+P3.B(0,-3,0,6,'c-o',2)+P3.Z(1,-3,0,-3,'c-o',2)+P3.Z(5,6,0,6,'c-o',2)+P3.T(2.4,6.4,'[−3, 6)','o',2)+P3.T(3.2,4.5,'artan ↗','t',3,'end')),
+   txt:()=>`<span class="kick">Konu 3</span><h3>Tanım, Görüntü ve Yön</h3><div data-s="1"><p><b>a) Tanım (x):</b> Soldan sağa &rarr; <b>[1, 5)</b></p></div><div data-s="2"><p><b>b) Görüntü (y):</b> Aşağıdan yukarı &rarr; <b>[−3, 6)</b></p></div><div data-s="3"><p><b>c) Yön:</b> Sağa doğru yükseldiği için <b>Artan</b>.</p></div>`},
+  {t:'4 · Grafiği Kaydırma',title:'Yukarı ve aşağı öteleme',n:3,
+   fig:()=>P4.svg(P4.L(-5,-5,6,6,'c-b')+P4.L(-6,-1,3,8,'c-o',1)+P4.D(0,5,'f-o',1)+P4.T(-0.4,5,'5','o',1,'end')+P4.L(-3,-5,6,4,'c-t',2)+P4.D(0,-2,'f-t',2)+P4.T(0.5,-2.5,'−2','t',2,'start')),
+   txt:()=>`<span class="kick">Konu 4</span><h3>Doğruyu kaydırınca ne olur?</h3><div data-s="1"><p><span class="tag o">h(x) = x + a</span> 5 birim yukarı çıktı &rarr; <b>a = 5</b></p></div><div data-s="2"><p><span class="tag t">g(x) = x − b</span> 2 birim aşağı indi &rarr; <b>b = 2</b></p></div><div data-s="3"><div class="w-ans">a · b = 5 · 2 = 10</div></div>`},
+  {t:'5 · Grafikten Eğim',title:'Düşey ÷ Yatay',n:3,
+   fig:()=>P5.svg(P5.L(-5.3,-0.97,2.3,4.7,'c-b')+P5.D(-4,0,'f-o',1)+P5.D(0,3,'f-o',1)+P5.B(0,0,0,3,'c-o',2)+P5.T(0.3,1.5,'düşey=3','o',2,'start')+P5.B(-4,0,0,0,'c-o',2)+P5.T(-2,-1,'yatay=4','o',2)+P5.T(-3.5,3.5,'eğim = +3/4','t',3,'start')),
+   txt:()=>`<span class="kick">Konu 5</span><h3>Grafikten eğim bulma</h3><div class="fm sm">eğim = ${FR('düşey uzunluk','yatay uzunluk')}</div><div data-s="1"><p>Eksenleri (−4, 0) ve (0, 3)'te kesiyor.</p></div><div data-s="2"><p>Düşey = <b>3</b>, Yatay = <b>4</b></p></div><div data-s="3"><div class="w-ans">Sağa yukarı çıktığı için: + ${FR('3','4')}</div></div>`},
+  {t:'6 · Denklemden Eğim',title:'Sayı Doğrusunda Eğim Sıralama',n:2,
+   fig:()=>`<svg viewBox="0 0 350 220"><path class="axis" d="M18 135H330"/><path class="arw" d="M336 135l-8 -4v8z"/>${[-2,-1,0,1,2,3,4].map(v=>`<path class="axis" d="M${nx(v)} 129v12"/><text class="tk" x="${nx(v)}" y="156" text-anchor="middle">${String(v).replace('-','−')}</text>`).join('')}<g data-s="1"><circle class="f-o" cx="${nx(-1)}" cy="135" r="8"/><text class="lab o" x="${nx(-1)}" y="102" text-anchor="middle">m_g = −1</text><circle class="f-t" cx="${nx(0)}" cy="135" r="8"/><text class="lab t" x="${nx(0)}" y="185" text-anchor="middle">m_h = 0</text><circle class="f-b" cx="${nx(3)}" cy="135" r="8"/><text class="lab b" x="${nx(3)}" y="102" text-anchor="middle">m_f = 3</text></g><text class="lab t" x="175" y="48" text-anchor="middle" style="font-size:28px" data-s="2">m_f &gt; m_h &gt; m_g</text></svg>`,
+   txt:()=>`<span class="kick">Konu 6</span><h3>f(x)=3x+5, g(x)=−x+9, h(x)=7</h3><div data-s="1"><p>x'in katsayısı eğimdir: <b>m<sub>f</sub> = 3</b>, <b>m<sub>g</sub> = −1</b>, <b>m<sub>h</sub> = 0</b> (x yok).</p></div><div data-s="2"><div class="w-ans">Sayı doğrusunda sağdaki büyüktür: m<sub>f</sub> &gt; m<sub>h</sub> &gt; m<sub>g</sub></div></div>`
+   +quiz('q6','p(x)=4x−3, q(x)=−5x+2, r(x)=6 eğim sıralaması?',['mp > mr > mq','mp > mq > mr','mq > mr > mp','mr > mp > mq'],0,'4 > 0 > −5')},
+  {t:'Özet Tablosu',title:'6 Konu Tek Bakışta',n:0,
+   txt:()=>`<span class="kick">Genel Özet</span><h3>Sınav Öncesi Son Tekrar</h3><table class="sum"><tbody>
+   <tr><td>1</td><td><b>f(5)</b>: kuralda x yerine 5 yaz, önce çarp sonra topla.</td></tr>
+   <tr><td>2</td><td><b>Grafikten f(4)</b>: yatayda (x) 4'ü bul &rarr; grafiğe git &rarr; y'den oku.</td></tr>
+   <tr><td>3</td><td><b>Tanım</b>: sol-sağ (x). <b>Görüntü</b>: alt-üst (y). Dolu <b>[ ]</b>, boş <b>( )</b>.</td></tr>
+   <tr><td>4</td><td><b>x + a</b> yukarı, <b>x − b</b> aşağı kaydırır.</td></tr>
+   <tr><td>5</td><td><b>Eğim = düşey ÷ yatay</b> (Yukarı +, aşağı −).</td></tr>
+   <tr><td>6</td><td><b>ax + b</b> eğimi <b>a</b>'dır. −x ise −1, x yoksa 0.</td></tr></tbody></table>`}
+];
+
+function renderMod2(){
+  const d=SL[wIdx],steps=d.n||0;
+  document.getElementById('m-app').innerHTML=`
+    <div class="w-top">
+      <div style="flex:1"><span class="lbl" style="margin:0">${d.t}</span><b style="font-size:16px">${d.title}</b></div>
+      <div class="row-s">${SL.map((_,k)=>`<button class="bsm ${k===wIdx?'pri':''}" onclick="wIdx=${k};wStep=0;renderMod2()">${k+1}</button>`).join('')}</div>
+    </div>
+    <div class="w-bar"><i style="width:${((wIdx+(steps?wStep/steps:1))/SL.length*100)}%"></i></div>
+    <div class="w-stage ${d.fig?'':'solo'}" id="w-stg">
+      ${d.fig?`<div class="w-card w-fig" onclick="wNext()">${d.fig()}</div>`:''}
+      <div class="w-card w-txt">${d.txt()}</div>
+    </div>
+    <div class="w-nav">
+      <button onclick="wPrev()" ${wIdx===0&&wStep===0?'disabled':''}>‹ Geri</button>
+      <span style="font-weight:800;color:var(--ink2)">Slayt ${wIdx+1}/${SL.length} ${steps?`(Adım ${wStep}/${steps})`:''}</span>
+      <button class="wnxt" onclick="wNext()" ${wIdx===SL.length-1&&wStep>=steps?'disabled':''}>İleri ›</button>
+    </div>`;
+  document.querySelectorAll('#w-stg [data-s]').forEach(e=>e.classList.toggle('on',+e.dataset.s<=wStep));
+  if(document.getElementById('sl')) updSl(document.getElementById('sl').value);
+}
+function wNext(){const stp=SL[wIdx].n||0;if(wStep<stp){wStep++;renderMod2();}else if(wIdx<SL.length-1){wIdx++;wStep=0;renderMod2();}}
+function wPrev(){if(wStep>0){wStep--;renderMod2();}else if(wIdx>0){wIdx--;wStep=SL[wIdx].n||0;renderMod2();}}
+function updSl(val){
+  const x=+val,y=2*x+3,X=P12.X,Y=P12.Y,ng=n=>String(n).replace('-','−');
+  document.getElementById('sv').setAttribute('d',`M${X(x)} ${Y(0)}V${Y(y)}`);
+  document.getElementById('sh').setAttribute('d',`M${X(0)} ${Y(y)}H${X(x)}`);
+  const c=document.getElementById('sp');c.setAttribute('cx',X(x));c.setAttribute('cy',Y(y));
+  const t=document.getElementById('stx');t.setAttribute('x',X(x)+(x>3?-10:10));t.setAttribute('y',Y(y)-8);t.textContent=`(${ng(x)}, ${ng(y)})`;
+  document.getElementById('eq').innerHTML=M(`f(${ng(x)}) = 2·${x<0?'('+ng(x)+')':x} + 3 = `)+`<b>${ng(y)}</b>`;
+}
+window.onload=render;
+</script>
+</body>
+</html>

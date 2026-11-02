@@ -1,0 +1,31 @@
+name: Deploy Beta to Cloudflare
+
+on:
+  push:
+    branches:
+      - beta
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/beta'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout beta
+        uses: actions/checkout@v4
+
+      - name: Prepare website files
+        run: |
+          mkdir -p dist
+          cp index.html robots.txt sitemap.xml favicon.ico favicon.svg apple-touch-icon.png og-image.png dist/
+
+      - name: Deploy to Cloudflare Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy --name=tmesem-sinav-xyz --assets=./dist --compatibility-date=2026-11-02

@@ -3,7 +3,7 @@ name: Deploy Beta to Cloudflare
 on:
   push:
     branches:
-      - beta
+      - Beta
   workflow_dispatch:
 
 permissions:
@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   deploy:
+    if: github.ref == 'refs/heads/Beta'
     runs-on: ubuntu-latest
 
     steps:
@@ -28,4 +29,3 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: deploy --name=tmesem-sinav-xyz --assets=./dist --compatibility-date=2026-11-02
-          

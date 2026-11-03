@@ -560,11 +560,77 @@ input[type=range]{width:100%;height:36px;accent-color:var(--accent)}
    .stat-bar-row .sb-l{flex-basis:88px}
    .brand-name{font-size:16px}
  }
- @media(max-width:380px){
-   .cmd-stats{grid-template-columns:1fr}
-   .cmd-stat:last-child{grid-column:auto}
- }
- </style>
+  @media(max-width:380px){
+    .cmd-stats{grid-template-columns:1fr}
+    .cmd-stat:last-child{grid-column:auto}
+  }
+
+  /* ===== YANLIŞLARIM (Mis Hatalarım) — Adaptive Learning ===== */
+  .assist-panel{
+    position:relative;overflow:hidden;border-radius:18px;padding:20px 20px 18px;margin-bottom:18px;
+    background:linear-gradient(135deg,var(--ac) 0%,transparent 62%),var(--board);
+    border:1px solid color-mix(in srgb,var(--ac) 32%,var(--line));
+    box-shadow:var(--card-sh);
+  }
+  .assist-panel::after{
+    content:'';position:absolute;right:-30px;top:-30px;width:130px;height:130px;border-radius:50%;
+    background:radial-gradient(circle,color-mix(in srgb,var(--ac) 26%,transparent),transparent 70%);
+    pointer-events:none;
+  }
+  .ap-head{display:flex;align-items:center;gap:9px;margin-bottom:12px;position:relative;z-index:1}
+  .ap-ic{width:34px;height:34px;display:grid;place-items:center;font-size:18px;border-radius:10px;background:color-mix(in srgb,var(--ac) 18%,transparent);border:1px solid color-mix(in srgb,var(--ac) 34%,transparent)}
+  .ap-lbl{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ac)}
+  .ap-title{font-size:18px;font-weight:800;line-height:1.35;color:var(--ink);margin-bottom:6px;position:relative;z-index:1}
+  .ap-sub{font-size:13px;color:var(--ink2);line-height:1.55;margin-bottom:15px;position:relative;z-index:1}
+  .ap-actions{display:flex;gap:10px;position:relative;z-index:1}
+
+  .wt-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+  .wt-row:last-child{border-bottom:none}
+  .wt-ic{font-size:20px;flex-shrink:0}
+  .wt-mid{flex:1;min-width:0}
+  .wt-name{font-size:13.5px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .wt-sub{font-size:11.5px;color:var(--ink2);margin-top:2px}
+  .wt-lvl{font-size:10px;font-weight:700;color:var(--ink2);background:var(--soft);border:1px solid var(--line);padding:3px 8px;border-radius:20px;white-space:nowrap}
+
+  .trend-row{display:flex;align-items:center;gap:18px;padding:6px 0}
+  .tr-bars{display:flex;gap:16px;align-items:flex-end;flex:1}
+  .tr-b{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;max-width:120px}
+  .tr-b i{width:100%;max-width:56px;border-radius:8px 8px 3px 3px;background:var(--soft);border:1px solid var(--line);min-height:10px;transition:height .5s ease}
+  .tr-b.now i{background:var(--teal);border-color:transparent}
+  .tr-b span{font-size:13px;font-weight:800;color:var(--ink)}
+  .tr-b em{font-size:10.5px;color:var(--ink2);font-style:normal}
+  .tr-delta{font-size:13px;font-weight:800;padding:7px 12px;border-radius:12px;white-space:nowrap}
+  .tr-delta.up{color:var(--teal);background:var(--teal-t)}
+  .tr-delta.down{color:var(--bad);background:var(--bad-t)}
+
+  .wg-group{margin-bottom:14px}
+  .wg-head{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:800;color:var(--ink);padding:8px 0 10px}
+  .wg-c{font-size:11px;font-weight:800;color:var(--ink2);background:var(--soft);border:1px solid var(--line);padding:2px 9px;border-radius:20px}
+  .wg-item{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;overflow:hidden;background:var(--soft)}
+  .wg-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:11px 13px;font-size:12.5px;color:var(--ink);line-height:1.45}
+  .wg-item summary::-webkit-details-marker{display:none}
+  .wg-q{flex:1}
+  .wg-arrow{color:var(--ink2);flex-shrink:0;transition:transform .2s}
+  .wg-item[open] .wg-arrow{transform:rotate(180deg)}
+  .wg-a{padding:0 13px 13px;border-top:1px dashed var(--line)}
+  .wg-correct{font-size:12.5px;font-weight:700;color:var(--teal);margin-top:11px}
+  .wg-exp{font-size:12px;color:var(--ink2);margin-top:8px;line-height:1.6}
+  .wg-topic{font-size:10.5px;color:var(--ink2);margin-top:10px;padding-top:9px;border-top:1px dashed var(--line);text-transform:capitalize}
+
+  .empty-state{text-align:center;padding:38px 20px}
+  .es-ic{font-size:44px;margin-bottom:12px}
+  .empty-state h3{font-size:17px;font-weight:800;color:var(--ink);margin-bottom:8px}
+  .empty-state p{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:18px}
+  .empty-note{font-size:12.5px;color:var(--ink2);line-height:1.6;padding:6px 0}
+
+  @media(max-width:520px){
+    .ap-title{font-size:16px}
+    .trend-row{flex-direction:column;align-items:stretch}
+    .tr-bars{justify-content:center}
+    .tr-delta{align-self:center}
+    .wt-lvl{display:none}
+  }
+  </style>
 </head>
 <body>
 <div class="liquid-bg">
@@ -616,7 +682,8 @@ const NAV=[
   {id:'home',t:'Ana Sayfa',ic:'🏠'},
   {id:'dersler',t:'Dersler',ic:'📚'},
   {id:'sinav',t:'Sınav Modu',ic:'🎯'},
-  {id:'istatistik',t:'İstatistikler',ic:'📊'}
+  {id:'yanlis',t:'Yanlışlarım',ic:'🚩'},
+  {id:'istatistik',t:'İstatistik',ic:'📊'}
 ];
 const SUBJ_META={
   elec:{name:'Dijital Elektronik',ic:'⚡',tone:'amber'},
@@ -1257,6 +1324,9 @@ function render(){
   else if(curC==='sinav'){
     renderSinav();
   }
+  else if(curC==='yanlis'){
+    renderYanlislarim();
+  }
   else if(curC==='istatistik'){
     renderIstatistik();
   }
@@ -1290,11 +1360,11 @@ function shuffleArr(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.fl
 function stripNum(s){return (s||'').replace(/^\s*\d+[.)]\s*/,'');}
 function buildExamPool(){
   const pool=[];
-  const add=(subj,arr)=>{if(Array.isArray(arr))arr.forEach(q=>{if(q&&q.q&&q.opts&&q.opts.length>=2)pool.push({subj,q:stripNum(q.q),opts:q.opts.slice(),ans:q.ans,exp:q.exp||'',lvl:q.lvl||'orta'});});};
-  add('din',typeof dinQuiz!=='undefined'?dinQuiz:[]);
-  add('lit',typeof litQuizList!=='undefined'?litQuizList:[]);
-  add('elec',typeof pdfQuizList!=='undefined'?pdfQuizList:[]);
-  add('lit',typeof litDynPool!=='undefined'?litDynPool:[]);
+  const add=(subj,arr,topics)=>{if(Array.isArray(arr))arr.forEach((q,i)=>{if(q&&q.q&&q.opts&&q.opts.length>=2)pool.push({subj,q:stripNum(q.q),opts:q.opts.slice(),ans:q.ans,exp:q.exp||'',lvl:q.lvl||'orta',topic:(topics&&topics[i])||'Genel'});});};
+  add('din',typeof dinQuiz!=='undefined'?dinQuiz:[],["İnsan ve Din","İnsan ve Din","Allah'ın Sıfatları","Allah'ın Sıfatları","Allah'ın Sıfatları","Kur'an ve Sureler"]);
+  add('lit',typeof litQuizList!=='undefined'?litQuizList:[],["Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Fiilimsi"]);
+  add('elec',typeof pdfQuizList!=='undefined'?pdfQuizList:[],["Sayı Sistemleri","Sayı Sistemleri","Sayı Sistemleri","Sayı Sistemleri","Sayı Sistemleri"]);
+  add('lit',typeof litDynPool!=='undefined'?litDynPool:[],["Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Fiilimsi","İş Mektubu","İş Mektubu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu"]);
   return pool;
 }
 function subjName(s){return s==='all'?'Tüm Dersler':((SUBJ_META[s]&&SUBJ_META[s].name)||s);}
@@ -1304,6 +1374,61 @@ function wrongList(){try{return JSON.parse(localStorage.getItem('mesem-wrong')||
 function wrongCount(){return wrongList().length;}
 function examHistory(){try{return JSON.parse(localStorage.getItem('mesem-exam-history')||'[]');}catch(e){return[];}}
 function fmtTime(s){s=Math.max(0,s|0);const m=Math.floor(s/60),ss=s%60;return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss;}
+/* === MİS HATALARIM — ANALİZ + ÖNERİ MOTORU (rule-based, dış API yok) === */
+function topicGroups(){
+  const w=wrongList(),g={};
+  w.forEach(x=>{
+    const key=x.subj+'|'+(x.topic||'Genel');
+    if(!g[key])g[key]={subj:x.subj,topic:x.topic||'Genel',count:0,lvls:[]};
+    g[key].count++;if(x.lvl)g[key].lvls.push(x.lvl);
+  });
+  return Object.values(g).sort((a,b)=>b.count-a.count);
+}
+function subjExamPct(){
+  const h=examHistory(),acc={};
+  h.forEach(x=>{if(x.subj&&x.subj!=='all'){if(!acc[x.subj])acc[x.subj]={s:0,n:0};acc[x.subj].s+=x.pct;acc[x.subj].n++;}});
+  const out={};Object.keys(acc).forEach(k=>out[k]=Math.round(acc[k].s/acc[k].n));return out;
+}
+function improvementTrend(){
+  const h=examHistory();if(h.length<2)return null;
+  const last=h[0].pct,prev=h.slice(1,4);
+  const prevAvg=prev.length?Math.round(prev.reduce((a,x)=>a+x.pct,0)/prev.length):last;
+  return {last,prevAvg,delta:last-prevAvg};
+}
+let _recs=[];
+function getRecommendations(){
+  const groups=topicGroups(),recs=[],weak=groups.filter(g=>g.count>=2);
+  const sp=subjExamPct();
+  weak.slice(0,3).forEach(g=>{
+    recs.push({icon:'📖',tone:subjTone(g.subj),title:'“'+g.topic+'” konusunu tekrar et',sub:((SUBJ_META[g.subj]||{}).name||g.subj)+' • '+g.count+' yanlış',action:'review',subj:g.subj,topic:g.topic});
+  });
+  const easyWrong=wrongList().filter(x=>x.lvl==='kolay').length;
+  if(easyWrong>=2){
+    const eg=groups.find(g=>g.lvls.filter(l=>l==='kolay').length>=2);
+    recs.push({icon:'🧱',tone:eg?subjTone(eg.subj):'blue',title:'Temel konulara dön',sub:easyWrong+' kolay soruda hata var'+(eg?' — '+eg.topic:'')+' konusunu gözden geçir',action:'review',subj:eg?eg.subj:'all',topic:eg?eg.topic:''});
+  }
+  Object.keys(sp).forEach(k=>{
+    if(sp[k]<60)recs.push({icon:'🎯',tone:subjTone(k),title:((SUBJ_META[k]||{}).name||k)+' için kısa sınav çöz',sub:'Ortalaman %'+sp[k]+' — mini sınavla kendini test et',action:'exam',subj:k});
+  });
+  const tr=improvementTrend();
+  if(tr&&tr.delta>10)recs.push({icon:'📈',tone:'teal',title:'İlerliyorsun, zorlaş',sub:'Son sınavın %'+tr.last+' (önceki ortalama %'+tr.prevAvg+') — orta ve zor sorulara geç',action:'exam',subj:'all'});
+  if(!wrongList().length)recs.push({icon:'🌱',tone:'teal',title:'Henüz yanlışın yok',sub:'Bir mini sınav çöz; yanlışların burada toplansın, sana özel öneriler üretelim',action:'exam',subj:'all'});
+  return recs.slice(0,4);
+}
+function doRecommendation(i){
+  const rec=_recs[i];if(!rec)return;
+  if(rec.action==='exam'){exSubject=rec.subj||'all';exMode='mini';setC('sinav');}
+  else{const map={math:'math',elec:'elec',din:'din',lit:'lit'};setC(map[rec.subj]||'dersler');}
+}
+function practiceTopic(subj,topic){
+  let pool=buildExamPool().filter(q=>q.subj===subj&&q.topic===topic);
+  if(pool.length<3)pool=buildExamPool().filter(q=>q.subj===subj);
+  if(!pool.length)return;
+  exQs=shuffleArr(pool).slice(0,Math.min(5,pool.length));
+  exIdx=0;exAnswers={};exFlags={};exResult=null;exMode='yanlis';exSubject=subj;
+  exStartedAt=Date.now();exTotalSec=Math.max(3,exQs.length)*60;exTimeLeft=exTotalSec;exDeadline=Date.now()+exTotalSec*1000;
+  exRunning=true;render();startExTimer();
+}
 function startExam(){
   const mode=EXAM_MODES.find(m=>m.id===exMode)||EXAM_MODES[1];
   let pool=buildExamPool();
@@ -1375,7 +1500,7 @@ function exFinish(byTime){
     const h=examHistory();h.unshift(exResult);if(h.length>100)h.length=100;
     localStorage.setItem('mesem-exam-history',JSON.stringify(h));
     const w=wrongList();
-    review.forEach(r=>{if(!r.ok&&!w.find(x=>x.q===r.q.q))w.push({q:r.q.q,subj:r.q.subj,opts:r.q.opts,ans:r.q.ans,exp:r.q.exp,ts:Date.now()});});
+    review.forEach(r=>{if(!r.ok&&!w.find(x=>x.q===r.q.q))w.push({q:r.q.q,subj:r.q.subj,opts:r.q.opts,ans:r.q.ans,exp:r.q.exp,topic:r.q.topic||'Genel',lvl:r.q.lvl||'orta',ts:Date.now()});});
     localStorage.setItem('mesem-wrong',JSON.stringify(w));
   }catch(e){}
   curC='sinav';render();
@@ -1500,6 +1625,72 @@ function renderIstatistik(){
     <div class="exam-cfg"><h3>Ders İlerlemesi</h3>${bars}</div>
     <div class="exam-cfg"><h3>Sınav Geçmişi</h3>${histHtml}</div>
     ${wCount?`<div class="exam-cfg"><h3>🚩 Yanlışlarım</h3><p>${wCount} soruyu tekrar ederek zayıf konularını güçlendirebilirsin.</p><button class="cmd-cta" style="width:100%;justify-content:center" onclick="startWrongExam()">Yanlışları Tekrar Et ▶</button></div>`:''}
+  </div>`;
+}
+function renderYanlislarim(){
+  const m=document.getElementById('main-view');
+  const wrongs=wrongList();
+  const groups=topicGroups();
+  _recs=getRecommendations();
+  const top=_recs[0];
+  const topHtml=top?`
+    <div class="assist-panel" style="--ac:${TONE_C[top.tone]||'var(--blue)'}">
+      <div class="ap-head"><span class="ap-ic">${top.icon}</span><span class="ap-lbl">Öğrenme Asistanı</span></div>
+      <div class="ap-title">${top.title}</div>
+      <div class="ap-sub">${top.sub}</div>
+      <div class="ap-actions">
+        <button class="cmd-cta" style="flex:1" onclick="doRecommendation(0)">${top.action==='exam'?'Sınava Başla ▶':'Konuya Git ▶'}</button>
+      </div>
+    </div>`:'';
+  const weakHtml=groups.length?groups.map(g=>{
+    const t=SUBJ_META[g.subj]||{ic:'📌',name:g.subj,tone:'blue'};
+    const lvlSet=[...new Set(g.lvls)];
+    const lvlTag=lvlSet.length?`<span class="wt-lvl">${lvlSet.join(' · ')}</span>`:'';
+    return `<div class="wt-row">
+      <span class="wt-ic" style="color:${TONE_C[t.tone]||'var(--blue)'}">${t.ic}</span>
+      <div class="wt-mid"><div class="wt-name">${g.topic}</div><div class="wt-sub">${t.name} • ${g.count} yanlış</div></div>
+      ${lvlTag}
+      <button class="bsm" onclick="practiceTopic('${g.subj}','${g.topic.replace(/'/g,"\\'")}')">Çöz ▶</button>
+    </div>`;
+  }).join(''):'<p class="empty-note">Henüz zayıf konu tespit edilmedi. Sınav çözdükçe konuların burada toplanır.</p>';
+  const tr=improvementTrend();
+  const trendHtml=tr?`
+    <div class="trend-row">
+      <div class="tr-bars">
+        <div class="tr-b"><i style="height:${Math.max(10,tr.prevAvg)}%"></i><span>%${tr.prevAvg}</span><em>önceki</em></div>
+        <div class="tr-b now"><i style="height:${Math.max(10,tr.last)}%;background:${tr.delta>=0?'var(--teal)':'var(--bad)'}"></i><span>%${tr.last}</span><em>son sınav</em></div>
+      </div>
+      <span class="tr-delta ${tr.delta>=0?'up':'down'}">${tr.delta>=0?'▲':'▼'} ${Math.abs(tr.delta)} puan</span>
+    </div>`:'<p class="empty-note">Gelişimini görmek için en az 2 sınav çöz.</p>';
+  const subjOrder=['math','elec','din','lit'];
+  const bySubj={};
+  wrongs.forEach(w=>{(bySubj[w.subj]=bySubj[w.subj]||[]).push(w);});
+  const wrongsHtml=wrongs.length?subjOrder.filter(s=>bySubj[s]).map(s=>{
+    const t=SUBJ_META[s];
+    return `<div class="wg-group">
+      <div class="wg-head"><span>${t.ic} ${t.name}</span><span class="wg-c">${bySubj[s].length}</span></div>
+      ${bySubj[s].slice(0,6).map(w=>`
+        <details class="wg-item">
+          <summary><span class="wg-q">${w.q}</span><span class="wg-arrow">▾</span></summary>
+          <div class="wg-a">
+            <div class="wg-correct">✅ Doğru cevap: ${w.opts[w.ans]}</div>
+            ${w.exp?`<div class="wg-exp">💡 ${w.exp}</div>`:''}
+            <div class="wg-topic">${w.topic||''}${w.lvl?' • '+w.lvl:''}</div>
+          </div>
+        </details>`).join('')}
+    </div>`;
+  }).join(''):`<div class="empty-state">
+      <div class="es-ic">🎉</div>
+      <h3>Henüz yanlışın yok</h3>
+      <p>Bir mini sınav çöz; yanlışların burada toplansın ve sana özel öneriler üretelim.</p>
+      <button class="cmd-cta" onclick="exSubject='all';exMode='mini';setC('sinav')">Mini Sınav Çöz ▶</button>
+    </div>`;
+  m.innerHTML=`<div class="dash">
+    <div class="sub-hdr"><button class="bsm" onclick="setC('home')">🏠</button><span>🚩 Yanlışlarım</span></div>
+    ${topHtml}
+    <div class="exam-cfg"><h3>Zayıf Konular</h3>${weakHtml}</div>
+    <div class="exam-cfg"><h3>Gelişim</h3>${trendHtml}</div>
+    <div class="exam-cfg"><h3>Tüm Yanlışlarım (${wrongs.length})</h3>${wrongsHtml}</div>
   </div>`;
 }
 function renderHome(){

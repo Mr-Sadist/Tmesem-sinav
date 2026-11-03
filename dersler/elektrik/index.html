@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11. Sınıf Dijital Elektronik Konu Anlatımı ve Sınav Hazırlık | Tuzla MESEM</title>
+<meta name="description" content="11. Sınıf Dijital Elektronik: sayı sistemleri (ikili, onluk, hex), bit-bayt, MSB-LSB, mantık kapıları, 8-bit devre lab ve 2'ler tümleyeni. Adım adım konu anlatımı, canlı simülatör ve soru seti ile Tuzla MESEM'de Elektronik'e hazırlan.">
+<link rel="canonical" href="https://tmesem-sinav.xyz/dersler/elektrik/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="11. Sınıf Dijital Elektronik Konu Anlatımı | Tuzla MESEM">
+<meta property="og:description" content="Sayı sistemleri, mantık kapıları, 8-bit devre lab ve 2'ler tümleyeni. Canlı simülatör ve soru seti.">
+<meta property="og:url" content="https://tmesem-sinav.xyz/dersler/elektrik/">
+<meta property="og:image" content="https://tmesem-sinav.xyz/og-image.png">
+<meta property="og:locale" content="tr_TR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="11. Sınıf Dijital Elektronik | Tuzla MESEM">
+<meta name="twitter:description" content="Sayı sistemleri, mantık kapıları, 8-bit devre lab ve 2'ler tümleyeni.">
+<meta name="twitter:image" content="https://tmesem-sinav.xyz/og-image.png">
+<link rel="icon" href="../../favicon.ico" sizes="32x32 48x48">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../landing.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Course","name":"11. Sınıf Dijital Elektronik","description":"Sayı sistemleri, mantık kapıları, 8-bit devre lab ve 2'ler tümleyeni.","provider":{"@type":"Organization","name":"Tuzla MESEM"},"teaches":"Sayı sistemleri, bit-bayt, MSB-LSB, mantık kapıları, 8-bit devre, 2'ler tümleyeni","inLanguage":"tr"}
+</script>
+<script>try{var t=localStorage.getItem('mesem-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<style>:root{--accent:#f59e0b;--accent-t:rgba(245,158,11,.12)}</style>
+</head>
+<body>
+<header class="lbar">
+  <div class="lbar-in">
+    <a class="lbrand" href="/"><span class="mk">🎓</span><span>Tuzla MESEM<small>11. Sınıf Çalışma Portalı</small></span></a>
+    <nav class="lnav">
+      <a href="/">Ana Sayfa</a>
+      <a href="/dersler/matematik/">Matematik</a>
+      <a href="/dersler/elektrik/">Elektrik</a>
+      <a href="/dersler/din-kulturu/">Din Kültürü</a>
+      <a href="/#sinav" class="go">Sınav Modu →</a>
+      <button class="lthm" onclick="var r=document.documentElement;r.setAttribute('data-theme',r.getAttribute('data-theme')==='dark'?'light':'dark');try{localStorage.setItem('mesem-theme',r.getAttribute('data-theme'))}catch(e){}" aria-label="Tema">☀️</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="/">Ana Sayfa</a><span class="sep">/</span><a href="/#dersler">Dersler</a><span class="sep">/</span><span class="cur">Dijital Elektronik</span>
+  </nav>
+
+  <section class="cover">
+    <div class="cover-grid">
+      <div>
+        <span class="tag">⚡ Dijital Elektronik • 11. Sınıf</span>
+        <h1>Dijital Elektronik <span class="u">Konu Anlatımı</span> ve Simülatör</h1>
+        <p class="lead">Sayı sistemlerinden mantık kapılarına, 8-bit devre laboratuvarından 2'ler tümleyenine kadar Dijital Elektronik; canlı simülatör, boşluk doldurma ve test soruları ile Tuzla MESEM'de çalış.</p>
+        <div class="cta-row">
+          <a class="btn btn-p" href="/#elec">Derslere Başla →</a>
+          <a class="btn btn-g" href="/#sinav">Sınav Modu</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>6</b><span>Konu (Bölüm 1)</span></div>
+          <div class="stat"><b>4</b><span>Bölüm / Araç</span></div>
+          <div class="stat"><b>8</b><span>Bit Lab</span></div>
+        </div>
+      </div>
+      <aside class="board" aria-label="Sayı sistemi özet">
+        <div class="board-hd"><span class="dot" style="background:#f59e0b"></span><span>Sayı Sistemi Dönüşüm</span></div>
+        <div class="board-bd">
+          <div class="row"><span class="k">103</span><span class="v">₁₀  =  01100111₂  (8-bit)</span></div>
+          <div class="row"><span class="k">10101010</span><span class="v">₂  =  170₁₀</span></div>
+          <div class="row"><span class="k">3AC</span><span class="v">₁₆  =  001110101100₂</span></div>
+          <div class="row"><span class="k">MSB</span><span class="v">en soldaki (en büyük değerlikli) bit</span></div>
+          <div class="row"><span class="k">2'ler</span><span class="v">tümleyeni = 1'ler tümleyeni + 1</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-ttl"><span class="n">01</span><h2>Konu Anlatımları</h2><span class="ln"></span></div>
+    <div class="topics">
+      <a class="topic" href="/#elec"><div class="ti">🔌</div><h3>Anahtar & Lamba (Dijital Mantık)</h3><p>1/0 mantığı, anahtar-lamba devresi ve mantık kapılarına giriş.</p><span class="chip">Bölüm 1</span></a>
+      <a class="topic" href="/#elec"><div class="ti">💾</div><h3>Bit, Bayt & 1024</h3><p>En küçük birim bit; 8 bit = 1 bayt; 1024 tabanlı birimler.</p><span class="chip">Bölüm 1</span></a>
+      <a class="topic" href="/#elec"><div class="ti">🔢</div><h3>Sayı Sistemleri & MSB-LSB</h3><p>İkili, onluk ve hex dönüşüm; MSB-LSB kavramları.</p><span class="chip">Bölüm 1</span></a>
+      <a class="topic" href="/#elec"><div class="ti">🪜</div><h3>El Yazısı Merdiven Bölme</h3><p>Desimal→binary dönüşümde merdiven yöntemi, adım adım.</p><span class="chip">Bölüm 1</span></a>
+      <a class="topic" href="/#elec"><div class="ti">✳️</div><h3>L-Ok Kuvvet Çarpımı</h3><p>2'nin kuvvetleri ile binary→desimal dönüşüm (L-ok yöntemi).</p><span class="chip">Bölüm 1</span></a>
+      <a class="topic" href="/#elec"><div class="ti">➕</div><h3>Gruplama & Toplama/Tümleme</h3><p>Oktal/hex gruplama, ikili toplama ve 2'ler tümleyeni ile çıkarma.</p><span class="chip">Bölüm 1</span></a>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-ttl"><span class="n">02</span><h2>İnteraktif Araçlar</h2><span class="ln"></span></div>
+    <div class="tools">
+      <a class="tool" href="/#elec"><div class="ti">🎛️</div><h3>8-Bit & Devre Lab</h3><p>Canlı simülatör: bitleri değiştir, devreyi izle.</p></a>
+      <a class="tool" href="/#elec"><div class="ti">🎬</div><h3>Akıllı Tahta Atölyesi</h3><p>El yazısı algoritma adımları: merdiven, L-ok, tümleme.</p></a>
+      <a class="tool" href="/#elec"><div class="ti">✍️</div><h3>Soru Seti</h3><p>Boşluk doldurma, klasik yazılı ve çoktan seçmeli test.</p></a>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-ttl"><span class="n">03</span><h2>Nasıl Çalışılır?</h2><span class="ln"></span></div>
+    <div class="steps">
+      <div class="step"><h3>Konuyu Oku</h3><p>6 konu, çözümlü örnekler ve dönüşüm tablolarıyla.</p></div>
+      <div class="step"><h3>Simülatörde Dene</h3><p>8-bit lab'da bitleri değiştir, sonucu anında gör.</p></div>
+      <div class="step"><h3>Akıllı Tahtada İzle</h3><p>Her algoritmanın el yazısı adımlarını adım adım izle.</p></div>
+      <div class="step"><h3>Test Et</h3><p>Boşluk, klasik ve test sorularıyla kendini ölç, Sınav Modu'na geç.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-ttl"><span class="n">04</span><h2>İlgili Dersler</h2><span class="ln"></span></div>
+    <div class="rel">
+      <a href="/dersler/matematik/"><div class="ri">📐</div><b>Matematik</b><span>Fonksiyon, eğim, asal çarpanlara ayırma</span></a>
+      <a href="/dersler/din-kulturu/"><div class="ri">🕋</div><b>Din Kültürü</b><span>12 Kasım sınavı konu tekrarları</span></a>
+      <a href="/dersler/turk-dili-ve-edebiyati/"><div class="ri">📖</div><b>Türk Dili ve Edebiyatı</b><span>Karagöz, fiilimsi, iş mektubu</span></a>
+    </div>
+  </section>
+</main>
+
+<footer class="lfoot">
+  <div class="wrap lfoot-in">
+    <div class="fl">
+      <a href="/">Ana Sayfa</a>
+      <a href="/#sinav">Sınav Modu</a>
+      <a href="/#yanlis">Yanlışlarım</a>
+      <a href="/#istatistik">İstatistikler</a>
+      <a href="/sitemap.xml">Harita</a>
+    </div>
+    <div class="cr">© 2026 Tuzla MESEM — 11. Sınıf Çalışma Portalı</div>
+  </div>
+</footer>
+</body>
+</html>

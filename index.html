@@ -654,9 +654,16 @@ input[type=range]{width:100%;height:36px;accent-color:var(--accent)}
   <div class="in appnav-in" id="nav-bar"></div>
 </nav>
 <div class="wrap"><main id="main-view"></main></div>
-<footer class="ftr">
-  <div class="in">
-    <details class="acc">
+ <footer class="ftr">
+   <div class="in">
+     <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:4px 0 12px">
+       <span style="font-size:12px;font-weight:700;color:var(--ink2)">📚 Ders Rehberleri:</span>
+       <a href="/dersler/matematik/" style="font-size:12.5px;font-weight:600;color:var(--blue)"><u>Matematik</u></a>
+       <a href="/dersler/elektrik/" style="font-size:12.5px;font-weight:600;color:var(--orange)"><u>Dijital Elektronik</u></a>
+       <a href="/dersler/din-kulturu/" style="font-size:12.5px;font-weight:600;color:var(--teal)"><u>Din Kültürü</u></a>
+       <a href="/dersler/turk-dili-ve-edebiyati/" style="font-size:12.5px;font-weight:600;color:var(--purple)"><u>Türk Dili ve Edebiyatı</u></a>
+     </div>
+     <details class="acc">
       <summary>
         <span>⚖️ Yasal Bilgilendirme & Telif <span class="pill">✓ KVKK Uygundur</span></span>
         <span style="color:#f59e0b">▸ Detay</span>
@@ -1300,7 +1307,15 @@ function openMath(ex,mod){curC='math';curEx=ex;curMod=mod;render();window.scroll
 function openDin(m=1){curC='din';dinMod=m;render();window.scrollTo({top:0,behavior:'smooth'});}
 function openElec(t=1){curC='elec';elMainTab=t;render();window.scrollTo({top:0,behavior:'smooth'});}
 function openLit(m=1){curC='lit';litMod=m;render();window.scrollTo({top:0,behavior:'smooth'});}
-function setC(id){curC=id;render();window.scrollTo({top:0,behavior:'smooth'});}
+ function setC(id){curC=id;render();window.scrollTo({top:0,behavior:'smooth'});
+   if(location.hash!=='#'+id){try{history.replaceState(null,'','#'+id);}catch(e){location.hash=id;}}
+ }
+ function hashRoute(){
+   const h=(location.hash||'').replace('#','');
+   if(!h)return;
+   const valid=['home','dersler','sinav','yanlis','istatistik','math','elec','din','lit'];
+   if(valid.includes(h)&&h!==curC){curC=h;render();}
+ }
 
 function render(){
   const activeTop=['math','elec','din','lit'].includes(curC)?'dersler':curC;
@@ -3421,7 +3436,8 @@ function ansLitQ(qIdx, oIdx){
   if(oIdx === item.ans){ btn.classList.add('ok'); fb.className = 'fb ok'; fb.innerHTML = '🎉 Doğru! ' + item.exp; }
   else { btn.classList.add('err'); document.getElementById(`lq-${qIdx}-${item.ans}`).classList.add('ok'); fb.className = 'fb err'; fb.innerHTML = '❌ Yanlış. ' + item.exp; }
 }
-window.onload=()=>{initTheme();loadState();setupBackToTop();render();};
+window.onload=()=>{initTheme();loadState();setupBackToTop();hashRoute();render();};
+window.addEventListener('hashchange',hashRoute);
 </script>
 </body>
 </html>

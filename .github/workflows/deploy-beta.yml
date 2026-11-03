@@ -22,6 +22,7 @@ jobs:
         run: |
           mkdir -p dist
           cp index.html robots.txt sitemap.xml favicon.ico favicon.svg apple-touch-icon.png og-image.png dist/
+          cp -r dersler dist/
 
       - name: Deploy to Cloudflare Worker
         uses: cloudflare/wrangler-action@v3

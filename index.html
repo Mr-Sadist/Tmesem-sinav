@@ -421,8 +421,150 @@ input[type=range]{width:100%;height:36px;accent-color:var(--accent)}
   .acc-ic{width:32px;height:32px;font-size:17px}
   .acc-tt{font-size:13.5px}
   .acc-meta{display:none}
-}
-</style>
+ }
+ /* ================= PREMIUM DESIGN SYSTEM v3 ================= */
+ :root{--r-lg:20px;--r-md:16px;--r-sm:12px}
+ /* --- Header / brand --- */
+ .top-hdr{padding:13px 14px}
+ .hdr-r{align-items:center}
+ .brand{display:flex;align-items:center;gap:11px;min-width:0}
+ .brand-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--accent),#fbbf24);display:grid;place-items:center;font-size:19px;flex:0 0 auto;box-shadow:0 6px 16px -6px rgba(245,158,11,.55)}
+ .brand-name{font-size:17px;font-weight:800;letter-spacing:-.02em;line-height:1.1;margin:0}
+ .brand small{display:block;font-size:11px;font-weight:600;color:var(--ink2);margin-top:1px}
+ .t-btn{min-height:42px;width:42px;padding:0;display:grid;place-items:center;font-size:17px;border-radius:11px}
+ /* --- App navigation --- */
+ .appnav{background:var(--nav-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+ .appnav-in{display:flex;align-items:center;gap:6px;padding:8px 2px}
+ .ntab{flex:0 0 auto;min-height:42px;padding:0 15px;border-radius:99px;border:1px solid transparent;background:transparent;color:var(--ink2);font-weight:700;font-size:13px;display:inline-flex;align-items:center;gap:7px;transition:all .15s;white-space:nowrap}
+ .ntab:hover{color:var(--ink);background:var(--soft)}
+ .ntab.active{background:var(--accent);color:var(--accent-ink);font-weight:800;border-color:var(--accent)}
+ .ntab .n-ic{font-size:15px}
+ .appnav-in .row-s{padding:0}
+ /* --- Dashboard --- */
+ .dash{display:flex;flex-direction:column;gap:14px}
+ .cmd{position:relative;overflow:hidden;background:var(--board);border:1px solid var(--line);box-shadow:var(--card-sh);border-radius:var(--r-lg);padding:26px 22px}
+ .cmd::before{content:"";position:absolute;inset:0;background:radial-gradient(520px 210px at 8% -40%,var(--accent-t),transparent 72%);pointer-events:none}
+ .cmd::after{content:"";position:absolute;right:-50px;top:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,var(--blue-t),transparent 70%);pointer-events:none}
+ .cmd-in{position:relative;z-index:1}
+ .cmd h2{font-size:23px;font-weight:800;letter-spacing:-.02em;margin-bottom:7px;line-height:1.22}
+ .cmd p{font-size:13.5px;color:var(--ink2);line-height:1.65;max-width:560px;margin-bottom:18px}
+ .cmd-actions{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:18px}
+ .cmd-cta{min-height:48px;padding:0 22px;border-radius:13px;border:1px solid transparent;font-weight:800;font-size:14px;background:var(--accent);color:var(--accent-ink);box-shadow:0 10px 24px -12px rgba(245,158,11,.65);transition:transform .15s,box-shadow .15s;display:inline-flex;align-items:center;gap:8px}
+ .cmd-cta:hover{transform:translateY(-1px)}
+ .cmd-cta:active{transform:scale(.98)}
+ .cmd-cta.ghost{background:var(--soft);color:var(--ink);border-color:var(--line);box-shadow:none}
+ .cmd-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+ .cmd-stat{background:var(--soft);border:1px solid var(--line);border-radius:13px;padding:14px}
+ .cmd-stat .n{font-family:"JetBrains Mono",monospace;font-size:21px;font-weight:800;letter-spacing:-.02em;line-height:1}
+ .cmd-stat .n .u{font-size:12px;color:var(--ink2);font-weight:700}
+ .cmd-stat .l{font-size:11px;font-weight:700;color:var(--ink2);margin-top:6px}
+ /* --- Feature cards --- */
+ .feat-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+ .feat{position:relative;overflow:hidden;background:var(--board);border:1px solid var(--line);box-shadow:var(--card-sh);border-radius:var(--r-md);padding:18px;text-align:left;transition:transform .16s,border-color .16s;display:flex;flex-direction:column;gap:9px}
+ .feat:hover{transform:translateY(-2px);border-color:var(--line-strong)}
+ .feat:active{transform:scale(.985)}
+ .feat .f-ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:22px;margin-bottom:2px}
+ .feat h3{font-size:15.5px;font-weight:800;letter-spacing:-.01em}
+ .feat p{font-size:12.5px;color:var(--ink2);line-height:1.6;flex:1}
+ .feat .f-go{font-size:12.5px;font-weight:800;display:flex;align-items:center;gap:5px}
+ .feat.exam .f-ic{background:var(--accent-t)}
+ .feat.exam h3,.feat.exam .f-go{color:var(--orange)}
+ .feat.stat .f-ic{background:var(--blue-t)}
+ .feat.stat h3,.feat.stat .f-go{color:var(--blue)}
+ /* --- Section title --- */
+ .sec-ttl{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:2px 1px}
+ .sec-ttl h3{font-size:15px;font-weight:800;letter-spacing:-.01em}
+ .sec-ttl .hint{font-size:11.5px;color:var(--ink2);font-weight:700;white-space:nowrap}
+ /* --- Hub (Dersler) --- */
+ .hub-intro{background:var(--board);border:1px solid var(--line);box-shadow:var(--card-sh);border-radius:var(--r-md);padding:18px;margin-bottom:14px}
+ .hub-intro h2{font-size:18px;font-weight:800;margin-bottom:5px;letter-spacing:-.01em}
+ .hub-intro p{font-size:13px;color:var(--ink2);line-height:1.65}
+ /* --- Stats --- */
+ .stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:14px}
+ .stat-card{background:var(--board);border:1px solid var(--line);box-shadow:var(--card-sh);border-radius:var(--r-md);padding:16px}
+ .stat-card .sc-ic{font-size:20px;margin-bottom:9px}
+ .stat-card .sc-n{font-family:"JetBrains Mono",monospace;font-size:27px;font-weight:800;letter-spacing:-.02em;line-height:1}
+ .stat-card .sc-l{font-size:12px;font-weight:700;color:var(--ink2);margin-top:7px}
+ .stat-card .sc-sub{font-size:11px;color:var(--ink2);margin-top:3px}
+ .stat-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+ .stat-bar-row:last-child{margin-bottom:0}
+ .stat-bar-row .sb-l{flex:0 0 104px;font-size:12.5px;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .stat-bar-row .sb-bar{flex:1;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+ .stat-bar-row .sb-bar i{display:block;height:100%;border-radius:99px;transition:width .4s}
+ .stat-bar-row .sb-v{flex:0 0 42px;text-align:right;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700}
+ /* --- Exam mode --- */
+ .exam-wrap{display:flex;flex-direction:column;gap:14px}
+ .exam-cfg{background:var(--board);border:1px solid var(--line);box-shadow:var(--card-sh);border-radius:var(--r-md);padding:18px}
+ .exam-cfg h3{font-size:15.5px;font-weight:800;margin-bottom:4px;letter-spacing:-.01em}
+ .exam-cfg>p{font-size:12.5px;color:var(--ink2);margin-bottom:15px;line-height:1.6}
+ .cfg-lbl{font-size:11.5px;font-weight:800;color:var(--ink2);margin:14px 0 8px;letter-spacing:.01em}
+ .cfg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+ .cfg-opt{border:1px solid var(--line);background:var(--soft);border-radius:12px;padding:13px 10px;text-align:center;transition:all .15s;cursor:pointer}
+ .cfg-opt:hover{border-color:var(--line-strong)}
+ .cfg-opt.sel{border-color:var(--accent);background:var(--accent-t);box-shadow:0 0 0 1px var(--accent) inset}
+ .cfg-opt .co-n{font-size:13.5px;font-weight:800}
+ .cfg-opt .co-m{font-size:11px;color:var(--ink2);font-weight:700;margin-top:4px}
+ .cfg-opt .co-t{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;margin-top:6px;color:var(--ink)}
+ .cfg-subj{display:flex;flex-wrap:wrap;gap:8px}
+ .cfg-subj .cfg-opt{flex:1 0 auto;min-width:120px}
+ .exam-top{position:sticky;top:52px;z-index:20;background:var(--board);border:1px solid var(--line);box-shadow:var(--card-sh);border-radius:var(--r-md);padding:13px 15px;display:flex;align-items:center;gap:12px}
+ .exam-top .et-num{font-size:13px;font-weight:800;white-space:nowrap}
+ .exam-top .et-bar{flex:1;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+ .exam-top .et-bar i{display:block;height:100%;border-radius:99px;background:var(--teal);transition:width .3s}
+ .exam-top .et-timer{font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:800;white-space:nowrap;padding:5px 11px;border-radius:9px;background:var(--soft);border:1px solid var(--line)}
+ .exam-top .et-timer.warn{color:var(--bad);border-color:var(--bad-t);background:var(--bad-t)}
+ .exam-qcard{background:var(--board);border:1px solid var(--line);box-shadow:var(--card-sh);border-radius:var(--r-md);padding:20px}
+ .exam-qcard .eq-tag{display:inline-block;font-size:11px;font-weight:800;padding:3px 10px;border-radius:99px;margin-bottom:12px}
+ .exam-qcard .eq-txt{font-size:15px;font-weight:600;line-height:1.65}
+ .exam-opts{display:flex;flex-direction:column;gap:9px}
+ .exam-opt{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;padding:12px 15px;border-radius:12px;border:1px solid var(--line);background:var(--board);color:var(--ink);font-size:14px;font-weight:600;text-align:left;transition:all .14s}
+ .exam-opt:hover{border-color:var(--line-strong)}
+ .exam-opt.sel{border-color:var(--accent);background:var(--accent-t);box-shadow:0 0 0 1px var(--accent) inset}
+ .exam-opt .eo-l{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:var(--soft);border:1px solid var(--line);font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:800;flex:0 0 auto}
+ .exam-opt.sel .eo-l{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+ .exam-foot{display:flex;align-items:center;justify-content:space-between;gap:10px}
+ .exam-dots{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+ .exam-dot{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--soft);color:var(--ink2);font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;transition:all .14s}
+ .exam-dot.answered{border-color:var(--teal);color:var(--teal)}
+ .exam-dot.cur{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+ .exam-dot.flag{position:relative}
+ .exam-dot.flag::after{content:"";position:absolute;top:-3px;right:-3px;width:9px;height:9px;border-radius:50%;background:var(--orange)}
+ /* --- Exam results --- */
+ .res-hero{position:relative;overflow:hidden;background:var(--board);border:1px solid var(--line);box-shadow:var(--card-sh);border-radius:var(--r-lg);padding:26px 22px;text-align:center}
+ .res-hero .rh-ring{width:120px;height:120px;margin:0 auto 14px;position:relative}
+ .res-hero .rh-ring svg{transform:rotate(-90deg)}
+ .res-hero .rh-pct{position:absolute;inset:0;display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-size:28px;font-weight:800}
+ .res-hero h2{font-size:19px;font-weight:800;margin-bottom:4px;letter-spacing:-.01em}
+ .res-hero p{font-size:13px;color:var(--ink2)}
+ .res-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+ .res-stats .rs{background:var(--board);border:1px solid var(--line);border-radius:13px;padding:14px;text-align:center}
+ .res-stats .rs .n{font-family:"JetBrains Mono",monospace;font-size:22px;font-weight:800}
+ .res-stats .rs .l{font-size:11px;font-weight:700;color:var(--ink2);margin-top:5px}
+ .res-review{display:flex;flex-direction:column;gap:10px}
+ .res-item{background:var(--board);border:1px solid var(--line);border-radius:13px;padding:15px;border-left:3px solid var(--line-strong)}
+ .res-item.ok{border-left-color:var(--teal)}
+ .res-item.no{border-left-color:var(--bad)}
+ .res-item .ri-q{font-size:13.5px;font-weight:700;margin-bottom:10px;line-height:1.55}
+ .res-item .ri-a{display:flex;flex-direction:column;gap:5px;font-size:12.5px}
+ .res-item .ri-a .a{padding:7px 11px;border-radius:9px;background:var(--soft);border:1px solid var(--line)}
+ .res-item .ri-a .a.correct{background:var(--teal-t);border-color:var(--teal);color:var(--ink);font-weight:700}
+ .res-item .ri-a .a.wrong{background:var(--bad-t);border-color:var(--bad)}
+ .res-item .ri-exp{font-size:12px;color:var(--ink2);margin-top:9px;line-height:1.6;padding-top:9px;border-top:1px dashed var(--line)}
+ @media(max-width:520px){
+   .feat-row{grid-template-columns:1fr}
+   .cmd h2{font-size:20px}
+   .cmd-stats{grid-template-columns:1fr 1fr}
+   .cmd-stat:last-child{grid-column:1/-1}
+   .cfg-grid{grid-template-columns:1fr}
+   .res-stats{grid-template-columns:1fr 1fr 1fr}
+   .stat-bar-row .sb-l{flex-basis:88px}
+   .brand-name{font-size:16px}
+ }
+ @media(max-width:380px){
+   .cmd-stats{grid-template-columns:1fr}
+   .cmd-stat:last-child{grid-column:auto}
+ }
+ </style>
 </head>
 <body>
 <div class="liquid-bg">
@@ -432,16 +574,18 @@ input[type=range]{width:100%;height:36px;accent-color:var(--accent)}
 </div>
 <header class="top-hdr">
   <div class="in hdr-r">
-    <div>
-      <span class="bdg">11. SINIF DERS VE SINAV PORTALI</span>
-      <h1>Tuzla MESEM İnteraktif Çalışma Rehberi</h1>
-      <p>Ders Özetleri • Dinamik Soru Üretici • Adım Adım Akıllı Tahta Atölyesi</p>
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">🎓</span>
+      <div>
+        <h1 class="brand-name">Tuzla MESEM</h1>
+        <small>11. Sınıf İnteraktif Çalışma Portalı</small>
+      </div>
     </div>
-    <button class="t-btn" id="thm-btn" onclick="toggleTheme()">☀️ Açık Tema</button>
+    <button class="t-btn" id="thm-btn" onclick="toggleTheme()" aria-label="Tema değiştir">☀️</button>
   </div>
 </header>
-<nav class="topnav">
-  <div class="in row-s" id="nav-bar"></div>
+<nav class="appnav" aria-label="Ana menü">
+  <div class="in appnav-in" id="nav-bar"></div>
 </nav>
 <div class="wrap"><main id="main-view"></main></div>
 <footer class="ftr">
@@ -465,8 +609,28 @@ const courses=[
   {id:'elec',t:'⚡ Dijital Elektronik',desc:'Anahtar-Lamba devresi, Bit/Bayt & 1024, el yazısı merdiven bölme, L-ok çarpımı, ikili toplama & tümleme atölyesi.',rdy:1,tone:'tone-amber'},
   {id:'lit',t:'📚 Türk Dili ve Edb.',desc:'Geleneksel Türk Tiyatrosu (Karagöz, Orta Oyunu, Meddah, Kukla, Köy Seyirlik), İsim-Fiil & Zarf-Fiil ve İş Mektubu.',rdy:1,tone:'tone-purple'},
   {id:'math',t:'📐 Matematik',desc:'1. Sınav (Fonksiyonlar) ve 2. Sınav (Asal Çarpanlar) interaktif modülleri.',rdy:1,tone:'tone-blue'},
-  {id:'din',t:'🕋 Din Kültürü',desc:'12 Kasım Sınavı: 1. Bölmede konu tekrarları, 2. Bölmede boşluk doldurma, klasik yazılı ve test soruları.',rdy:1,tone:'tone-teal'}
+   {id:'din',t:'🕋 Din Kültürü',desc:'12 Kasım Sınavı: 1. Bölmede konu tekrarları, 2. Bölmede boşluk doldurma, klasik yazılı ve test soruları.',rdy:1,tone:'tone-teal'}
 ];
+/* === ÜST SEVİYE NAVİGASYON (Premium v3) === */
+const NAV=[
+  {id:'home',t:'Ana Sayfa',ic:'🏠'},
+  {id:'dersler',t:'Dersler',ic:'📚'},
+  {id:'sinav',t:'Sınav Modu',ic:'🎯'},
+  {id:'istatistik',t:'İstatistikler',ic:'📊'}
+];
+const SUBJ_META={
+  elec:{name:'Dijital Elektronik',ic:'⚡',tone:'amber'},
+  lit:{name:'Türk Dili ve Edebiyatı',ic:'📚',tone:'purple'},
+  math:{name:'Matematik',ic:'📐',tone:'blue'},
+  din:{name:'Din Kültürü',ic:'🕋',tone:'teal'}
+};
+/* === SINAV MODU — REJİMLER === */
+const EXAM_MODES=[
+  {id:'mini',name:'Mini Sınav',q:5,min:3,desc:'Hızlı tekrar'},
+  {id:'standart',name:'Standart Sınav',q:10,min:5,desc:'Önerilen'},
+  {id:'karisik',name:'Karışık Sınav',q:15,min:5,desc:'Çoklu konu'}
+];
+let exMode='standart',exSubject='all',exRunning=false,exQs=[],exIdx=0,exAnswers={},exFlags={},exTimeLeft=0,exTimerId=null,exStartedAt=0,exDeadline=0,exTotalSec=0,exResult=null;
 let curC='home',curEx=1,curMod=1,curT=0,curT2=0,st={},wIdx=0,wStep=0,pfNum=240,pfStep=99;
 let dinMod=1,dinSubTab='blank',activeBlankId='bl-0';
 let litMod=1,litSubTab='match',activeLitSlot=0,litMatchVals=['','','','',''];
@@ -1049,10 +1213,21 @@ function renderPfTable(n,maxStep=99){
 ];</script>
 <!-- === ORTA NOKTA === -->
 <script>
+function updateThemeBtn(){
+  const b=document.getElementById('thm-btn');if(!b)return;
+  const isD=document.documentElement.getAttribute('data-theme')==='dark';
+  b.innerHTML=isD?'☀️':'🌙';
+  b.setAttribute('aria-label',isD?'Açık temaya geç':'Koyu temaya geç');
+}
 function toggleTheme(){
   const root=document.documentElement,isD=root.getAttribute('data-theme')==='dark';
   root.setAttribute('data-theme',isD?'light':'dark');
-  document.getElementById('thm-btn').innerHTML=isD?'🌙 Koyu Tema':'☀️ Açık Tema';
+  updateThemeBtn();
+  try{localStorage.setItem('mesem-theme',isD?'light':'dark');}catch(e){}
+}
+function initTheme(){
+  try{const t=localStorage.getItem('mesem-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}
+  updateThemeBtn();
 }
 function openMath(ex,mod){curC='math';curEx=ex;curMod=mod;render();window.scrollTo({top:0,behavior:'smooth'});}
 function openDin(m=1){curC='din';dinMod=m;render();window.scrollTo({top:0,behavior:'smooth'});}
@@ -1061,9 +1236,9 @@ function openLit(m=1){curC='lit';litMod=m;render();window.scrollTo({top:0,behavi
 function setC(id){curC=id;render();window.scrollTo({top:0,behavior:'smooth'});}
 
 function render(){
-  document.getElementById('nav-bar').innerHTML=courses.map(c=>`<button class="nav-i ${curC===c.id?'active':''}" onclick="setC('${c.id}')">${c.t}</button>`).join('');
+  const activeTop=['math','elec','din','lit'].includes(curC)?'dersler':curC;
+  document.getElementById('nav-bar').innerHTML=NAV.map(c=>`<button class="ntab ${activeTop===c.id?'active':''}" onclick="setC('${c.id}')"><span class="n-ic">${c.ic}</span>${c.t}</button>`).join('');
   const m=document.getElementById('main-view');
-  
   if(curC==='din') {
     renderDin();
   }
@@ -1074,17 +1249,18 @@ function render(){
     renderLit();
   }
   else if(curC==='home'){
-    const lastInfo=lastCourseInfo();
-    m.innerHTML=`<div class="hero"><h2>👋 11. Sınıf Çalışma Portalına Hoş Geldin!</h2><p><strong>Dijital Elektronik</strong>, <strong>Türk Dili ve Edebiyatı</strong>, <strong>Matematik (1. ve 2. Sınav)</strong> ve <strong>Din Kültürü</strong> interaktif modülleri, akıllı tahta simülatörleri ve yazılı sorularıyla hazır!</p>${lastInfo?`<div class="hbtns"><button class="hbtn" onclick="resumeLast()">▶ ${lastInfo.label} — Devam Et</button></div>`:`<div class="hbtns"><button class="hbtn" onclick="openElec(1)">⚡ Dijital Elektronik ▶</button><button class="hbtn alt" onclick="openLit(1)">📚 Türk Dili ve Edb. ▶</button><button class="hbtn alt" onclick="openMath(1,1)">📐 Matematik ▶</button><button class="hbtn alt" onclick="openDin(1)">🕋 Din Kültürü ▶</button></div>`}</div>
-    <div class="cgrid">${courses.slice(1).map(c=>{
-      const keys=c.id==='math'?['math1','math2']:[c.id];
-      const total=keys.reduce((a,k)=>a+courseTotal(k),0);
-      const done=keys.reduce((a,k)=>a+doneCount(k),0);
-      const pct=total?Math.round(done/total*100):0;
-      const ic=c.t.split(' ')[0];
-      return `<div class="ccard ${c.tone||''}"><div class="c-top"><span class="c-ic">${ic}</span><div><h3>${c.t.replace(ic,'').trim()}</h3><div class="c-meta">${c.desc}</div></div></div><div class="c-prog"><div class="c-prog-bar"><i style="width:${pct}%"></i></div><span>${done}/${total} konu</span></div><button class="cbtn ${c.rdy?'pri':''}" onclick="setC('${c.id}')">${c.rdy?'Dersi Aç ve Çalış ▶':'Dersi Görüntüle ▶'}</button></div>`;
-    }).join('')}</div>`;
-  } else if(curC==='math'){
+    renderHome();
+  }
+  else if(curC==='dersler'){
+    renderDersler();
+  }
+  else if(curC==='sinav'){
+    renderSinav();
+  }
+  else if(curC==='istatistik'){
+    renderIstatistik();
+  }
+  else if(curC==='math'){
     const exN=['1. Sınav: Fonksiyon & Eğim','2. Sınav: Asal Çarpanlar','2. Dönem 1. Sınav','2. Dönem 2. Sınav'];
     m.innerHTML=`<div class="exam-bar"><span class="lbl">📐 Matematik Dersi — Sınav Seçimi</span><div class="row-s">${exN.map((n,i)=>`<button class="ebtn ${curEx===i+1?'active':''}" onclick="curEx=${i+1};curMod=1;mathView=1;render()">${i<2?'📝 '+n:'🔒 '+n}</button>`).join('')}</div></div>`
     +(curEx===1||curEx===2?`<div id="m-app"></div>`
@@ -1109,6 +1285,264 @@ function lastCourseInfo(){
   return null;
 }
 function resumeLast(){const i=lastCourseInfo();if(i)i.go();}
+/* ================= PREMIUM v3: SINAV MODU + İSTATİSTİK + MİS HATALARIM ================= */
+function shuffleArr(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function stripNum(s){return (s||'').replace(/^\s*\d+[.)]\s*/,'');}
+function buildExamPool(){
+  const pool=[];
+  const add=(subj,arr)=>{if(Array.isArray(arr))arr.forEach(q=>{if(q&&q.q&&q.opts&&q.opts.length>=2)pool.push({subj,q:stripNum(q.q),opts:q.opts.slice(),ans:q.ans,exp:q.exp||'',lvl:q.lvl||'orta'});});};
+  add('din',typeof dinQuiz!=='undefined'?dinQuiz:[]);
+  add('lit',typeof litQuizList!=='undefined'?litQuizList:[]);
+  add('elec',typeof pdfQuizList!=='undefined'?pdfQuizList:[]);
+  add('lit',typeof litDynPool!=='undefined'?litDynPool:[]);
+  return pool;
+}
+function subjName(s){return s==='all'?'Tüm Dersler':((SUBJ_META[s]&&SUBJ_META[s].name)||s);}
+function subjTone(s){return s==='all'?'blue':((SUBJ_META[s]&&SUBJ_META[s].tone)||'blue');}
+const TONE_C={amber:'var(--orange)',purple:'var(--purple)',blue:'var(--blue)',teal:'var(--teal)'};
+function wrongList(){try{return JSON.parse(localStorage.getItem('mesem-wrong')||'[]');}catch(e){return[];}}
+function wrongCount(){return wrongList().length;}
+function examHistory(){try{return JSON.parse(localStorage.getItem('mesem-exam-history')||'[]');}catch(e){return[];}}
+function fmtTime(s){s=Math.max(0,s|0);const m=Math.floor(s/60),ss=s%60;return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss;}
+function startExam(){
+  const mode=EXAM_MODES.find(m=>m.id===exMode)||EXAM_MODES[1];
+  let pool=buildExamPool();
+  if(exSubject!=='all')pool=pool.filter(q=>q.subj===exSubject);
+  exQs=shuffleArr(pool).slice(0,mode.q);
+  if(!exQs.length){alert('Bu ders için yeterli soru bulunamadı. Lütfen başka ders seç.');return;}
+  exIdx=0;exAnswers={};exFlags={};exResult=null;
+  exStartedAt=Date.now();exTotalSec=mode.min*60;exTimeLeft=exTotalSec;exDeadline=Date.now()+exTotalSec*1000;
+  exRunning=true;
+  render();startExTimer();
+}
+function startWrongExam(){
+  const w=shuffleArr(wrongList());
+  if(!w.length)return;
+  exQs=w.slice(0,15).map(x=>({subj:x.subj,q:x.q,opts:x.opts,ans:x.ans,exp:x.exp||''}));
+  exIdx=0;exAnswers={};exFlags={};exResult=null;exMode='yanlis';
+  exStartedAt=Date.now();exTotalSec=Math.max(3,exQs.length)*60;exTimeLeft=exTotalSec;exDeadline=Date.now()+exTotalSec*1000;
+  exRunning=true;
+  render();startExTimer();
+}
+function startExTimer(){
+  stopExTimer();
+  exTimerId=setInterval(()=>{
+    exTimeLeft=Math.max(0,Math.round((exDeadline-Date.now())/1000));
+    const t=document.getElementById('ex-timer');
+    if(t){t.textContent=fmtTime(exTimeLeft);t.classList.toggle('warn',exTimeLeft<=30);}
+    if(exTimeLeft<=0)exFinish(true);
+  },250);
+}
+function stopExTimer(){if(exTimerId){clearInterval(exTimerId);exTimerId=null;}}
+function exSelect(i){exAnswers[exIdx]=i;exRender();}
+function exGoTo(i){if(!exRunning)return;if(i<0||i>=exQs.length)return;exIdx=i;exRender();}
+function exNext(){if(!exRunning)return;if(exIdx<exQs.length-1)exGoTo(exIdx+1);else exFinish(false);}
+function exPrev(){if(!exRunning)return;if(exIdx>0)exGoTo(exIdx-1);}
+function exFlag(){if(!exRunning)return;exFlags[exIdx]=!exFlags[exIdx];exRender();}
+function exExit(){stopExTimer();exRunning=false;exResult=null;setC('home');}
+function exRender(){
+  const app=document.getElementById('ex-app');if(!app)return;
+  const q=exQs[exIdx];if(!q)return;
+  const tone=TONE_C[subjTone(q.subj)]||'var(--blue)';
+  const sm=SUBJ_META[q.subj]||{ic:'❓',name:q.subj};
+  app.innerHTML=`
+    <div class="exam-top">
+      <span class="et-num">Soru ${exIdx+1} / ${exQs.length}</span>
+      <div class="et-bar"><i style="width:${Math.round((exIdx+1)/exQs.length*100)}%"></i></div>
+      <span class="et-timer" id="ex-timer">${fmtTime(exTimeLeft)}</span>
+    </div>
+    <div class="exam-dots">${exQs.map((_,i)=>`<button class="exam-dot ${i===exIdx?'cur':''} ${exAnswers[i]!==undefined?'answered':''} ${exFlags[i]?'flag':''}" onclick="exGoTo(${i})" aria-label="Soru ${i+1}">${i+1}</button>`).join('')}</div>
+    <div class="exam-qcard">
+      <span class="eq-tag" style="background:${tone}22;color:${tone}">${sm.ic} ${sm.name}</span>
+      <div class="eq-txt">${q.q}</div>
+    </div>
+    <div class="exam-opts">${q.opts.map((o,i)=>`<button class="exam-opt ${exAnswers[exIdx]===i?'sel':''}" onclick="exSelect(${i})"><span class="eo-l">${'ABCD'[i]}</span><span>${o}</span></button>`).join('')}</div>
+    <div class="exam-foot">
+      <button class="bsm" onclick="exPrev()" ${exIdx===0?'disabled style="opacity:.4"':''}>◀ Önceki</button>
+      <button class="bsm ${exFlags[exIdx]?'on':''}" onclick="exFlag()">${exFlags[exIdx]?'🚩 İşaretli':'🚩 İşaretle'}</button>
+      <button class="bsm pri" onclick="exNext()">${exIdx===exQs.length-1?'Bitir ✓':'Sonraki ▶'}</button>
+    </div>`;
+}
+function exFinish(byTime){
+  if(!exRunning)return;
+  exRunning=false;stopExTimer();
+  let correct=0;
+  const review=exQs.map((q,i)=>{const ua=exAnswers[i];const ok=ua===q.ans;if(ok)correct++;return {q,ua,ok};});
+  const pct=exQs.length?Math.round(correct/exQs.length*100):0;
+  const timeUsed=exTotalSec-exTimeLeft;
+  exResult={mode:exMode,subj:exSubject,correct,total:exQs.length,pct,time:timeUsed,ts:Date.now(),byTime:!!byTime};
+  try{
+    const h=examHistory();h.unshift(exResult);if(h.length>100)h.length=100;
+    localStorage.setItem('mesem-exam-history',JSON.stringify(h));
+    const w=wrongList();
+    review.forEach(r=>{if(!r.ok&&!w.find(x=>x.q===r.q.q))w.push({q:r.q.q,subj:r.q.subj,opts:r.q.opts,ans:r.q.ans,exp:r.q.exp,ts:Date.now()});});
+    localStorage.setItem('mesem-wrong',JSON.stringify(w));
+  }catch(e){}
+  curC='sinav';render();
+}
+function exRetry(){startExam();}
+function renderExResults(m){
+  const r=exResult;if(!r){renderSinavCfg(m);return;}
+  const mode=EXAM_MODES.find(x=>x.id===r.mode);
+  const modeName=r.mode==='yanlis'?'Yanlışlarım Tekrarı':(mode?mode.name:'Sınav');
+  const circ=2*Math.PI*52,off=circ*(1-r.pct/100);
+  const col=r.pct>=70?'var(--teal)':r.pct>=40?'var(--orange)':'var(--bad)';
+  const msg=r.pct>=70?'Harika iş! Konuları iyi biliyorsun.':r.pct>=40?'İyi gidiyorsun, tekrar ile güçlenirsin.':'Bu konuları tekrar çalışmak iyi olacak.';
+  m.innerHTML=`<div class="exam-wrap">
+    <div class="sub-hdr"><button class="bsm" onclick="setC('home')">🏠</button><span>📊 Sınav Sonucu</span></div>
+    <div class="res-hero">
+      <div class="rh-ring">
+        <svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" fill="none" stroke="var(--line)" stroke-width="10"/><circle cx="60" cy="60" r="52" fill="none" stroke="${col}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${circ.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}"/></svg>
+        <div class="rh-pct" style="color:${col}">%${r.pct}</div>
+      </div>
+      <h2>${msg}</h2>
+      <p>${modeName} • ${subjName(r.subj)}${r.byTime?' • Süre doldu':''}</p>
+    </div>
+    <div class="res-stats">
+      <div class="rs"><div class="n" style="color:var(--teal)">${r.correct}</div><div class="l">Doğru</div></div>
+      <div class="rs"><div class="n" style="color:var(--bad)">${r.total-r.correct}</div><div class="l">Yanlış</div></div>
+      <div class="rs"><div class="n">${fmtTime(r.time)}</div><div class="l">Süre</div></div>
+    </div>
+    <div class="cmd-actions">
+      <button class="cmd-cta" onclick="exRetry()">↻ Tekrar Dene</button>
+      <button class="cmd-cta ghost" onclick="setC('istatistik')">📊 İstatistikler</button>
+      <button class="cmd-cta ghost" onclick="setC('home')">🏠 Ana Sayfa</button>
+    </div>
+    <div class="sec-ttl"><h3>Çözüm Anahtarı</h3><span class="hint">${r.total} soru</span></div>
+    <div class="res-review">${exQs.map((q,i)=>{
+      const ua=exAnswers[i];const ok=ua===q.ans;
+      return `<div class="res-item ${ok?'ok':'no'}">
+        <div class="ri-q">${i+1}. ${q.q}</div>
+        <div class="ri-a">
+          ${ua!==undefined?`<span class="a ${ok?'correct':'wrong'}">Senin cevabın: ${'ABCD'[ua]}) ${q.opts[ua]}</span>`:'<span class="a wrong">Cevap verilmedi</span>'}
+          ${!ok?`<span class="a correct">Doğru cevap: ${'ABCD'[q.ans]}) ${q.opts[q.ans]}</span>`:''}
+        </div>
+        ${q.exp?`<div class="ri-exp">💡 ${q.exp}</div>`:''}
+      </div>`;
+    }).join('')}</div>
+  </div>`;
+}
+function renderSinavCfg(m){
+  const mode=EXAM_MODES.find(x=>x.id===exMode)||EXAM_MODES[1];
+  const wc=wrongCount();
+  m.innerHTML=`<div class="exam-wrap">
+    <div class="sub-hdr"><button class="bsm" onclick="setC('home')">🏠</button><span>🎯 Sınav Modu</span></div>
+    <div class="exam-cfg">
+      <h3>Günlük Pratik Sınavı</h3>
+      <p>Konu tekrarı için kısa ve pratik. Süre bitince sınav otomatik biter; sonuç ve çözüm anahtarı anında görünür.</p>
+      <div class="cfg-lbl">Sınav Rejimi</div>
+      <div class="cfg-grid">${EXAM_MODES.map(x=>`<button class="cfg-opt ${exMode===x.id?'sel':''}" onclick="exMode='${x.id}';render()"><div class="co-n">${x.name}</div><div class="co-m">${x.q} soru • ${x.desc}</div><div class="co-t">${x.min} dk</div></button>`).join('')}</div>
+      <div class="cfg-lbl">Ders Seçimi</div>
+      <div class="cfg-subj">${['all','elec','lit','math','din'].map(s=>`<button class="cfg-opt ${exSubject===s?'sel':''}" onclick="exSubject='${s}';render()"><div class="co-n">${s==='all'?'🎲 Tüm Dersler':SUBJ_META[s].ic+' '+SUBJ_META[s].name}</div></button>`).join('')}</div>
+      <div style="margin-top:18px"><button class="cmd-cta" style="width:100%;justify-content:center" onclick="startExam()">▶ Sınavı Başlat — ${mode.q} soru, ${mode.min} dk</button></div>
+    </div>
+    ${wc?`<div class="exam-cfg"><h3>🚩 Yanlışlarım</h3><p>${wc} soru tekrar bekliyor. Zayıf konularını hedefe alarak tekrar edebilirsin.</p><button class="cmd-cta" style="width:100%;justify-content:center" onclick="startWrongExam()">Yanlışları Tekrar Et ▶</button></div>`:''}
+  </div>`;
+}
+function renderSinav(){
+  const m=document.getElementById('main-view');
+  if(exRunning){
+    m.innerHTML=`<div class="exam-wrap"><div class="sub-hdr"><button class="bsm" onclick="exExit()">✕ Çık</button><span>🎯 Sınav Modu — ${subjName(exSubject)}</span></div><div id="ex-app"></div></div>`;
+    exRender();
+    return;
+  }
+  if(exResult){renderExResults(m);return;}
+  renderSinavCfg(m);
+}
+function renderDersler(){
+  const m=document.getElementById('main-view');
+  m.innerHTML=`<div class="dash">
+    <div class="hub-intro">
+      <h2>📚 Dersler</h2>
+      <p>Her ders konu özetleri, dinamik soru üretici ve akıllı tahta atölyesi içerir. İlerlemeni ders kartlarından takip edebilirsin.</p>
+    </div>
+    <div class="cgrid">${courses.slice(1).map(c=>{
+      const keys=c.id==='math'?['math1','math2']:[c.id];
+      const total=keys.reduce((a,k)=>a+courseTotal(k),0);
+      const done=keys.reduce((a,k)=>a+doneCount(k),0);
+      const pct=total?Math.round(done/total*100):0;
+      const ic=c.t.split(' ')[0];
+      return `<div class="ccard ${c.tone||''}"><div class="c-top"><span class="c-ic">${ic}</span><div><h3>${c.t.replace(ic,'').trim()}</h3><div class="c-meta">${c.desc}</div></div></div><div class="c-prog"><div class="c-prog-bar"><i style="width:${pct}%"></i></div><span>${done}/${total} konu</span></div><button class="cbtn ${c.rdy?'pri':''}" onclick="setC('${c.id}')">Dersi Aç ve Çalış ▶</button></div>`;
+    }).join('')}</div>
+  </div>`;
+}
+function renderIstatistik(){
+  const m=document.getElementById('main-view');
+  const keys=['math1','math2','elec','din','lit'];
+  const total=keys.reduce((a,k)=>a+courseTotal(k),0);
+  const done=keys.reduce((a,k)=>a+doneCount(k),0);
+  const pct=total?Math.round(done/total*100):0;
+  const hist=examHistory();
+  const exams=hist.length;
+  const avgPct=exams?Math.round(hist.reduce((a,x)=>a+x.pct,0)/exams):0;
+  const wCount=wrongCount();
+  const subjKeys=[['Matematik',['math1','math2'],'var(--blue)'],['Dij. Elektronik',['elec'],'var(--orange)'],['Din Kültürü',['din'],'var(--teal)'],['Türk Dili',['lit'],'var(--purple)']];
+  const bars=subjKeys.map(([name,ks,col])=>{
+    const t=ks.reduce((a,k)=>a+courseTotal(k),0);
+    const d=ks.reduce((a,k)=>a+doneCount(k),0);
+    const p=t?Math.round(d/t*100):0;
+    return `<div class="stat-bar-row"><span class="sb-l">${name}</span><div class="sb-bar"><i style="width:${p}%;background:${col}"></i></div><span class="sb-v">%${p}</span></div>`;
+  }).join('');
+  const histHtml=hist.length?hist.slice(0,8).map(x=>{
+    const mode=EXAM_MODES.find(mm=>mm.id===x.mode);
+    const col=x.pct>=70?'var(--teal)':x.pct>=40?'var(--orange)':'var(--bad)';
+    const d=new Date(x.ts).toLocaleDateString('tr-TR',{day:'2-digit',month:'short'});
+    return `<div class="stat-bar-row"><span class="sb-l">${(mode?mode.name.replace(' Sınav',''):'Sınav')} · ${d}</span><div class="sb-bar"><i style="width:${x.pct}%;background:${col}"></i></div><span class="sb-v">%${x.pct}</span></div>`;
+  }).join(''):'<p style="font-size:12.5px;color:var(--ink2);line-height:1.6">Henüz sınav tamamlanmadı. Sınav Modu\'ndan ilk sınavını çöz, burada geçmişin görünsün.</p>';
+  m.innerHTML=`<div class="dash">
+    <div class="sub-hdr"><button class="bsm" onclick="setC('home')">🏠</button><span>📊 İstatistikler</span></div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="sc-ic">✅</div><div class="sc-n">${done}<span style="font-size:15px;color:var(--ink2)">/${total}</span></div><div class="sc-l">Tamamlanan Konu</div><div class="sc-sub">%${pct} genel ilerleme</div></div>
+      <div class="stat-card"><div class="sc-ic">🎯</div><div class="sc-n">${exams}</div><div class="sc-l">Çözülen Sınav</div><div class="sc-sub">Ortalama %${avgPct}</div></div>
+      <div class="stat-card"><div class="sc-ic">🚩</div><div class="sc-n">${wCount}</div><div class="sc-l">Tekrar Bekleyen Soru</div><div class="sc-sub">Yanlışlarım</div></div>
+      <div class="stat-card"><div class="sc-ic">📈</div><div class="sc-n">%${avgPct}</div><div class="sc-l">Sınav Ortalaması</div><div class="sc-sub">Tüm sınavlar</div></div>
+    </div>
+    <div class="exam-cfg"><h3>Ders İlerlemesi</h3>${bars}</div>
+    <div class="exam-cfg"><h3>Sınav Geçmişi</h3>${histHtml}</div>
+    ${wCount?`<div class="exam-cfg"><h3>🚩 Yanlışlarım</h3><p>${wCount} soruyu tekrar ederek zayıf konularını güçlendirebilirsin.</p><button class="cmd-cta" style="width:100%;justify-content:center" onclick="startWrongExam()">Yanlışları Tekrar Et ▶</button></div>`:''}
+  </div>`;
+}
+function renderHome(){
+  const m=document.getElementById('main-view');
+  const lastInfo=lastCourseInfo();
+  const keys=['math1','math2','elec','din','lit'];
+  const total=keys.reduce((a,k)=>a+courseTotal(k),0);
+  const done=keys.reduce((a,k)=>a+doneCount(k),0);
+  const pct=total?Math.round(done/total*100):0;
+  const hist=examHistory();
+  const exams=hist.length;
+  const wc=wrongCount();
+  const h= new Date().getHours();
+  const greet=h<6?'İyi geceler':h<12?'Günaydın':h<18?'İyi günler':'İyi akşamlar';
+  m.innerHTML=`<div class="dash">
+    <div class="cmd"><div class="cmd-in">
+      <h2>${greet}, çalışma zamanı 👋</h2>
+      <p>Dijital Elektronik, Türk Dili ve Edebiyatı, Matematik ve Din Kültürü — konu özetleri, dinamik soru üretici ve akıllı tahta atölyesiyle sınavına hazırlan.</p>
+      <div class="cmd-actions">
+        ${lastInfo?`<button class="cmd-cta" onclick="resumeLast()">▶ ${lastInfo.label} — Devam Et</button>`:`<button class="cmd-cta" onclick="setC('dersler')">📚 Derslere Başla</button>`}
+        <button class="cmd-cta ghost" onclick="setC('sinav')">🎯 Sınava Gir</button>
+      </div>
+      <div class="cmd-stats">
+        <div class="cmd-stat"><div class="n">${done}<span class="u">/${total}</span></div><div class="l">Tamamlanan Konu</div></div>
+        <div class="cmd-stat"><div class="n">%${pct}</div><div class="l">Genel İlerleme</div></div>
+        <div class="cmd-stat"><div class="n">${exams}</div><div class="l">Çözülen Sınav</div></div>
+      </div>
+    </div></div>
+    <div class="feat-row">
+      <button class="feat exam" onclick="setC('sinav')"><span class="f-ic">🎯</span><h3>Sınav Modu</h3><p>Mini, Standart ve Karışık rejimlerle kısa pratik sınavı. Süre, sonuç ve çözüm anahtarı dahil.</p><span class="f-go">Sınava Gir →</span></button>
+      <button class="feat stat" onclick="setC('istatistik')"><span class="f-ic">📊</span><h3>İstatistikler</h3><p>İlerlemen, sınav geçmişin ve tekrar bekleyen yanlışların tek yerde.</p><span class="f-go">İlerlemeni Gör →</span></button>
+    </div>
+    <div class="sec-ttl"><h3>Dersler</h3><span class="hint">${wc?wc+' soru tekrar bekliyor':pct+'% tamamlandı'}</span></div>
+    <div class="cgrid">${courses.slice(1).map(c=>{
+      const k2=c.id==='math'?['math1','math2']:[c.id];
+      const t2=k2.reduce((a,k)=>a+courseTotal(k),0);
+      const d2=k2.reduce((a,k)=>a+doneCount(k),0);
+      const p2=t2?Math.round(d2/t2*100):0;
+      const ic=c.t.split(' ')[0];
+      return `<div class="ccard ${c.tone||''}"><div class="c-top"><span class="c-ic">${ic}</span><div><h3>${c.t.replace(ic,'').trim()}</h3><div class="c-meta">${c.desc}</div></div></div><div class="c-prog"><div class="c-prog-bar"><i style="width:${p2}%"></i></div><span>${d2}/${t2} konu</span></div><button class="cbtn ${c.rdy?'pri':''}" onclick="setC('${c.id}')">Dersi Aç ve Çalış ▶</button></div>`;
+    }).join('')}</div>
+  </div>`;
+}
 /* --- Matematik: Sınav + Modül accordion --- */
 function renderMathAcc(key){
   const app=document.getElementById('m-app');if(!app)return;
@@ -2796,7 +3230,7 @@ function ansLitQ(qIdx, oIdx){
   if(oIdx === item.ans){ btn.classList.add('ok'); fb.className = 'fb ok'; fb.innerHTML = '🎉 Doğru! ' + item.exp; }
   else { btn.classList.add('err'); document.getElementById(`lq-${qIdx}-${item.ans}`).classList.add('ok'); fb.className = 'fb err'; fb.innerHTML = '❌ Yanlış. ' + item.exp; }
 }
-window.onload=()=>{loadState();setupBackToTop();render();};
+window.onload=()=>{initTheme();loadState();setupBackToTop();render();};
 </script>
 </body>
 </html>

@@ -1439,12 +1439,46 @@ const mathQuiz=[
   {q:"36 sayısının asal çarpanlara ayrımı = ?",opts:["2² · 3²","2 · 3³","2³ · 3","6²"],ans:0,exp:"36 = 2·2·3·3 = 2²·3²",lvl:"kolay"},
   {q:"120 = 2ᵃ · 3ᵇ · 5ᶉ. a değeri = ?",opts:["2","3","4","1"],ans:1,exp:"120 = 8·15 = 2³·3·5 → a = 3",lvl:"orta"},
   {q:"180 = 2ᵃ · 3ᵇ · 5ᶉ. b değeri = ?",opts:["1","2","3","4"],ans:1,exp:"180 = 4·45 = 2²·3²·5 → b = 2",lvl:"orta"},
-  {q:"2ˣ · 3 = 24 eşitliğinde x = ?",opts:["2","3","4","5"],ans:1,exp:"2ˣ = 8 = 2³ → x = 3",lvl:"kolay"}
-];
+   {q:"2ˣ · 3 = 24 eşitliğinde x = ?",opts:["2","3","4","5"],ans:1,exp:"2ˣ = 8 = 2³ → x = 3",lvl:"kolay"}
+ ];
+/* === DİNAMİK MCQ ÜRETİCİ (gen()/gen2() motorlarının sınav versiyonu; her sınavda taze sayılar) === */
+function mkNumOpts(ans){
+  const cands=[ans-3,ans-2,ans-1,ans+1,ans+2,ans+3,ans+4,ans+6,ans-4,ans+5];
+  const chosen=[];
+  for(const c of cands){if(c!==ans&&!chosen.includes(c))chosen.push(c);if(chosen.length===3)break;}
+  while(chosen.length<3)chosen.push(ans+chosen.length+2);
+  const base=[ans].concat(chosen);
+  const order=shuffleArr([0,1,2,3]);
+  return {opts:order.map(i=>String(base[i])),ans:order.indexOf(0)};
+}
+function genMathDynMCQ(target){
+  const out=[],seen=new Set();
+  const T=[
+    ()=>{const a=rInt(2,6),b=rInt(1,9),x1=rInt(1,4),ans=a*x1+b,o=mkNumOpts(ans);
+      return {q:'f(x) = '+a+'x + '+b+' fonksiyonu için f('+x1+') = ?',opts:o.opts,ans:o.ans,exp:a+'·'+x1+' + '+b+' = '+ans,lvl:'kolay',topic:'Fonksiyonda Değer'};},
+    ()=>{const a=rInt(2,7),b=rInt(2,6),ans=a*b,o=mkNumOpts(ans);
+      return {q:'h(x) = x + '+a+' ve g(x) = x − '+b+' doğrusu için a · b = ?',opts:o.opts,ans:o.ans,exp:'a = '+a+', b = '+b+' → a·b = '+ans,lvl:'orta',topic:'Doğru Öteleme'};},
+    ()=>{const mf=rInt(2,8),mg=Math.random()>.4?-1:-rInt(2,6),b1=rInt(1,9),b2=rInt(2,9),c3=rInt(3,12);
+      const g=mg===-1?'-x + '+b2:mg+'x + '+b2;
+      return {q:'f(x)='+mf+'x+'+b1+', g(x)='+g+', h(x)='+c3+' eğim sıralaması?',opts:['mf > mh > mg','mf > mg > mh','mg > mf > mh','mg > mh > mf'],ans:0,exp:'mf='+mf+', mh=0, mg='+mg+' → '+mf+' > 0 > '+mg,lvl:'orta',topic:'Denklemden Eğim'};},
+    ()=>{const pool=[90,120,150,180,200,240,270,300,360,420];const n=pool[rInt(0,pool.length-1)];const d=getPrimeData(n),ans=d.pbs,o=mkNumOpts(ans);
+      return {q:n+' sayısının pozitif bölenlerinin sayısı = ?',opts:o.opts,ans:o.ans,exp:n+' = '+d.primes.map(p=>p+'^'+d.counts[p]).join(' · ')+' → '+d.primes.map(p=>d.counts[p]+1).join(' · ')+' = '+ans,lvl:'orta',topic:'Tam Analiz (a, b, c, d)'};},
+    ()=>{const p3=[7,5,11][rInt(0,2)],x=rInt(1,3),y=rInt(1,2),n=Math.pow(2,x)*Math.pow(3,y)*p3,ans=x+y+1,o=mkNumOpts(ans);
+      return {q:n+' = 2ˣ · 3ʸ · '+p3+'ᶻ eşitliğinde x + y + z = ?',opts:o.opts,ans:o.ans,exp:'x='+x+', y='+y+', z=1 → '+x+' + '+y+' + 1 = '+ans,lvl:'orta',topic:'Üsleri Bulma'};}
+  ];
+  let guard=0;
+  while(out.length<target&&guard<target*12){
+    guard++;
+    const g=T[guard%T.length]();
+    if(!seen.has(g.q)){seen.add(g.q);out.push(g);}
+  }
+  return out;
+}
 function buildExamPool(){
   const pool=[];
   const add=(subj,arr,topics)=>{if(Array.isArray(arr))arr.forEach((q,i)=>{if(q&&q.q&&q.opts&&q.opts.length>=2)pool.push({subj,q:stripNum(q.q),opts:q.opts.slice(),ans:q.ans,exp:q.exp||'',lvl:q.lvl||'orta',topic:(topics&&topics[i])||'Genel'});});};
   add('math',typeof mathQuiz!=='undefined'?mathQuiz:[],["Fonksiyonda Değer","Fonksiyonda Değer","Fonksiyonda Değer","Fonksiyonda Değer","Grafikten Okuma","Grafikten Okuma","Tanım ve Görüntü","Tanım ve Görüntü","Tanım ve Görüntü","Doğru Öteleme","Doğru Öteleme","Doğru Öteleme","Grafikten Eğim","Grafikten Eğim","Denklemden Eğim","Denklemden Eğim","Denklemden Eğim","Tam Analiz (a, b, c, d)","Tam Analiz (a, b, c, d)","Tam Analiz (a, b, c, d)","Üsleri Bulma","Üsleri Bulma","Üsleri Bulma"]);
+  (typeof genMathDynMCQ==='function'?genMathDynMCQ(15):[]).forEach(q=>pool.push({subj:'math',q:stripNum(q.q),opts:q.opts.slice(),ans:q.ans,exp:q.exp||'',lvl:q.lvl||'orta',topic:q.topic||'Genel'}));
   add('din',typeof dinQuiz!=='undefined'?dinQuiz:[],["İnsan ve Din","İnsan ve Din","Allah'ın Sıfatları","Allah'ın Sıfatları","Allah'ın Sıfatları","Kur'an ve Sureler"]);
   add('lit',typeof litQuizList!=='undefined'?litQuizList:[],["Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Fiilimsi"]);
   add('elec',typeof pdfQuizList!=='undefined'?pdfQuizList:[],["Sayı Sistemleri","Sayı Sistemleri","Sayı Sistemleri","Sayı Sistemleri","Sayı Sistemleri"]);

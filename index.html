@@ -1415,9 +1415,36 @@ function resumeLast(){const i=lastCourseInfo();if(i)i.go();}
 /* ================= PREMIUM v3: SINAV MODU + İSTATİSTİK + MİS HATALARIM ================= */
 function shuffleArr(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function stripNum(s){return (s||'').replace(/^\s*\d+[.)]\s*/,'');}
+/* === MATEMATİK SORU BANKASI (gerçek, müfredata uygun MCQ; q1/q6 dersi soruları dahil) === */
+const mathQuiz=[
+  {q:"f(x) = 2x + 3 fonksiyonu için f(5) = ?",opts:["11","13","15","17"],ans:1,exp:"2·5 + 3 = 13",lvl:"kolay"},
+  {q:"f(x) = x² − 1 fonksiyonu için f(3) = ?",opts:["7","8","9","10"],ans:1,exp:"3² − 1 = 9 − 1 = 8",lvl:"kolay"},
+  {q:"f(x) = 5 − x fonksiyonu için f(−2) = ?",opts:["3","7","−7","1"],ans:1,exp:"5 − (−2) = 5 + 2 = 7",lvl:"orta"},
+  {q:"f(x) = 3x − 1 ise f(4) = ?",opts:["7","11","12","13"],ans:1,exp:"3·4 − 1 = 11",lvl:"kolay"},
+  {q:"(0,2) ve (2,6) noktalarından geçen doğru için f(1) = ?",opts:["2","3","4","5"],ans:2,exp:"Eğim = (6−2)/(2−0) = 2; f(x)=2x+2; f(1)=4",lvl:"orta"},
+  {q:"(1,3) ve (3,7) noktalarından geçen doğru üzerinde olan nokta hangisidir?",opts:["(2,4)","(2,5)","(2,6)","(2,7)"],ans:1,exp:"Eğim = (7−3)/(3−1) = 2; f(x)=2x+1; f(2)=5",lvl:"orta"},
+  {q:"f(x) = 2x + 1, tanım kümesi {1,2,3}. Görüntü kümesi = ?",opts:["{1,2,3}","{3,5,7}","{2,4,6}","{1,3,5}"],ans:1,exp:"f(1)=3, f(2)=5, f(3)=7",lvl:"kolay"},
+  {q:"f(x) = x + 4, görüntü kümesi {6,8,10}. Tanım kümesi = ?",opts:["{1,3,5}","{2,4,6}","{4,6,8}","{6,8,10}"],ans:1,exp:"x = f(x) − 4 → 2, 4, 6",lvl:"orta"},
+  {q:"f(x) = 3x, tanım kümesi {0,1,2}. Görüntü kümesi = ?",opts:["{0,3,6}","{1,2,3}","{0,1,2}","{3,6,9}"],ans:0,exp:"f(0)=0, f(1)=3, f(2)=6",lvl:"kolay"},
+  {q:"y = 2x doğrusu 3 birim yukarı ötelendi. Yeni denklem = ?",opts:["y = 2x + 3","y = 2x − 3","y = 2x + 6","y = 5x"],ans:0,exp:"Yukarı öteleme → sabit terime +3 eklenir",lvl:"orta"},
+  {q:"y = −x + 2 doğrusu 4 birim sağa ötelendi. Yeni denklem = ?",opts:["y = −x + 6","y = −x − 2","y = −x + 2","y = −x + 4"],ans:0,exp:"x → x−4: y = −(x−4)+2 = −x+6",lvl:"orta"},
+  {q:"y = 3x doğrusu 2 birim aşağı ötelendi. Yeni denklem = ?",opts:["y = 3x − 2","y = 3x + 2","y = 3x − 6","y = x − 2"],ans:0,exp:"Aşağı öteleme → sabit terime −2 eklenir",lvl:"kolay"},
+  {q:"(0,1) ve (2,5) noktalarından geçen doğrunun eğimi = ?",opts:["1","2","3","4"],ans:1,exp:"(5−1)/(2−0) = 4/2 = 2",lvl:"kolay"},
+  {q:"(1,2) ve (4,8) noktalarından geçen doğrunun eğimi = ?",opts:["2","3","6","8"],ans:0,exp:"(8−2)/(4−1) = 6/3 = 2",lvl:"kolay"},
+  {q:"y = 5x − 7 doğrusunun eğimi = ?",opts:["−7","5","7","−5"],ans:1,exp:"y = mx + b formunda m = 5",lvl:"kolay"},
+  {q:"2y = 6x + 4 doğrusunun eğimi = ?",opts:["6","3","2","4"],ans:1,exp:"y = 3x + 2 → m = 3",lvl:"orta"},
+  {q:"p(x)=4x−3, q(x)=−5x+2, r(x)=6 eğim sıralaması?",opts:["mp > mr > mq","mp > mq > mr","mq > mr > mp","mr > mp > mq"],ans:0,exp:"Eğim: mp=4, mr=0, mq=−5 → 4 > 0 > −5",lvl:"orta"},
+  {q:"24 = 2³ · 3. 24'ün pozitif bölenlerinin sayısı = ?",opts:["6","8","12","4"],ans:1,exp:"(3+1)(1+1) = 8",lvl:"orta"},
+  {q:"60 = 2² · 3¹ · 5¹. Üslerin toplamı = ?",opts:["3","4","5","6"],ans:1,exp:"2 + 1 + 1 = 4",lvl:"kolay"},
+  {q:"36 sayısının asal çarpanlara ayrımı = ?",opts:["2² · 3²","2 · 3³","2³ · 3","6²"],ans:0,exp:"36 = 2·2·3·3 = 2²·3²",lvl:"kolay"},
+  {q:"120 = 2ᵃ · 3ᵇ · 5ᶉ. a değeri = ?",opts:["2","3","4","1"],ans:1,exp:"120 = 8·15 = 2³·3·5 → a = 3",lvl:"orta"},
+  {q:"180 = 2ᵃ · 3ᵇ · 5ᶉ. b değeri = ?",opts:["1","2","3","4"],ans:1,exp:"180 = 4·45 = 2²·3²·5 → b = 2",lvl:"orta"},
+  {q:"2ˣ · 3 = 24 eşitliğinde x = ?",opts:["2","3","4","5"],ans:1,exp:"2ˣ = 8 = 2³ → x = 3",lvl:"kolay"}
+];
 function buildExamPool(){
   const pool=[];
   const add=(subj,arr,topics)=>{if(Array.isArray(arr))arr.forEach((q,i)=>{if(q&&q.q&&q.opts&&q.opts.length>=2)pool.push({subj,q:stripNum(q.q),opts:q.opts.slice(),ans:q.ans,exp:q.exp||'',lvl:q.lvl||'orta',topic:(topics&&topics[i])||'Genel'});});};
+  add('math',typeof mathQuiz!=='undefined'?mathQuiz:[],["Fonksiyonda Değer","Fonksiyonda Değer","Fonksiyonda Değer","Fonksiyonda Değer","Grafikten Okuma","Grafikten Okuma","Tanım ve Görüntü","Tanım ve Görüntü","Tanım ve Görüntü","Doğru Öteleme","Doğru Öteleme","Doğru Öteleme","Grafikten Eğim","Grafikten Eğim","Denklemden Eğim","Denklemden Eğim","Denklemden Eğim","Tam Analiz (a, b, c, d)","Tam Analiz (a, b, c, d)","Tam Analiz (a, b, c, d)","Üsleri Bulma","Üsleri Bulma","Üsleri Bulma"]);
   add('din',typeof dinQuiz!=='undefined'?dinQuiz:[],["İnsan ve Din","İnsan ve Din","Allah'ın Sıfatları","Allah'ın Sıfatları","Allah'ın Sıfatları","Kur'an ve Sureler"]);
   add('lit',typeof litQuizList!=='undefined'?litQuizList:[],["Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Geleneksel Türk Tiyatrosu","Fiilimsi"]);
   add('elec',typeof pdfQuizList!=='undefined'?pdfQuizList:[],["Sayı Sistemleri","Sayı Sistemleri","Sayı Sistemleri","Sayı Sistemleri","Sayı Sistemleri"]);
@@ -1486,10 +1513,18 @@ function practiceTopic(subj,topic){
   exStartedAt=Date.now();exTotalSec=Math.max(3,exQs.length)*60;exTimeLeft=exTotalSec;exDeadline=Date.now()+exTotalSec*1000;
   exRunning=true;render();startExTimer();
 }
+function examGuardMsg(poolLen,mode){
+  const subjTxt=exSubject==='all'?'Tüm Dersler':subjName(exSubject);
+  if(poolLen===0)return 'Bu ders için henüz soru eklenmedi. Lütfen başka ders seç.';
+  const fit=EXAM_MODES.filter(m=>m.q<=poolLen);
+  if(fit.length)return 'Bu derste '+poolLen+' soru var — '+mode.name+' ('+mode.q+' soru) için yeterli değil.\n\n'+(fit.length===1?'Uygun mod: '+fit[0].name+' ('+fit[0].q+' soru)':'Uygun modlar: '+fit.map(m=>m.name+' ('+m.q+' soru)').join(', '))+'.\n\nDevam etmek için Uygun moda geçin.';
+  return 'Bu derste '+poolLen+' soru var — en kısa mod (Mini, 5 soru) için bile yeterli değil. Lütfen başka ders seç.';
+}
 function startExam(){
   const mode=EXAM_MODES.find(m=>m.id===exMode)||EXAM_MODES[1];
   let pool=buildExamPool();
   if(exSubject!=='all')pool=pool.filter(q=>q.subj===exSubject);
+  if(pool.length<mode.q){alert(examGuardMsg(pool.length,mode));return;}
   exQs=shuffleArr(pool).slice(0,mode.q);
   if(!exQs.length){alert('Bu ders için yeterli soru bulunamadı. Lütfen başka ders seç.');return;}
   exIdx=0;exAnswers={};exFlags={};exResult=null;

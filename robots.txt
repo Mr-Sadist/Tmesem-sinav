@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tmesem-sinav.com.tr/sitemap.xml
+Sitemap: https://tmesem-sinav.xyz/sitemap.xml

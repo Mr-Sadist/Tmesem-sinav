@@ -21,7 +21,7 @@ jobs:
       - name: Prepare website files
         run: |
           mkdir -p dist
-          cp index.html robots.txt sitemap.xml favicon.ico favicon.svg apple-touch-icon.png og-image.png dist/
+          cp index.html robots.txt sitemap.xml favicon.ico favicon.svg apple-touch-icon.png og-image.png manifest.json sw.js dist/
           cp -r dersler dist/
 
       - name: Deploy to Cloudflare Worker

@@ -27,6 +27,7 @@
 <link rel="icon" href="/favicon.ico" sizes="32x32 48x48">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -623,14 +624,51 @@ input[type=range]{width:100%;height:36px;accent-color:var(--accent)}
   .empty-state p{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:18px}
   .empty-note{font-size:12.5px;color:var(--ink2);line-height:1.6;padding:6px 0}
 
-  @media(max-width:520px){
-    .ap-title{font-size:16px}
-    .trend-row{flex-direction:column;align-items:stretch}
-    .tr-bars{justify-content:center}
-    .tr-delta{align-self:center}
-    .wt-lvl{display:none}
-  }
-  </style>
+   @media(max-width:520px){
+     .ap-title{font-size:16px}
+     .trend-row{flex-direction:column;align-items:stretch}
+     .tr-bars{justify-content:center}
+     .tr-delta{align-self:center}
+     .wt-lvl{display:none}
+   }
+   /* === ARAMA (Search) === */
+   .s-wrap{max-width:760px;margin:0 auto;width:100%}
+   .s-inputrow{display:flex;align-items:center;gap:10px;background:var(--board);border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:var(--card-sh);transition:border-color .18s,box-shadow .18s}
+   .s-inputrow:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-t),var(--card-sh)}
+   .s-ic{font-size:20px;flex:0 0 auto}
+   .s-input{flex:1;border:none;outline:none;background:transparent;color:var(--ink);font-size:16px;font-family:inherit;min-width:0}
+   .s-input::placeholder{color:var(--ink2)}
+   .s-clear{flex:0 0 auto;border:none;background:var(--soft);color:var(--ink2);width:26px;height:26px;border-radius:99px;cursor:pointer;font-size:12px;line-height:1;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s}
+   .s-clear:hover{background:var(--bad-t);color:var(--bad)}
+   .s-count{font-size:12px;color:var(--ink2);font-weight:700;margin:14px 4px 6px;text-transform:uppercase;letter-spacing:.05em}
+   .s-body{display:flex;flex-direction:column;gap:18px}
+   .s-empty{background:var(--board);border:1px solid var(--line);border-radius:18px;padding:40px 24px;text-align:center;box-shadow:var(--card-sh)}
+   .s-empty-ic{font-size:40px;margin-bottom:10px}
+   .s-empty h3{font-size:17px;margin-bottom:6px}
+   .s-empty p{font-size:13px;color:var(--ink2);max-width:440px;margin:0 auto}
+   .s-group-hd{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+   .s-group-ic{font-size:15px;width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+   .s-group-ic.blue{background:var(--blue-t)}
+   .s-group-ic.amber{background:var(--orange-t)}
+   .s-group-ic.teal{background:var(--teal-t)}
+   .s-group-ic.purple{background:var(--purple-t)}
+   .s-group-hd h3{font-size:14px;font-weight:700}
+   .s-group-n{font-size:11px;font-weight:700;color:var(--ink2);background:var(--soft);border:1px solid var(--line);padding:1px 8px;border-radius:99px}
+   .s-list{display:flex;flex-direction:column;gap:6px}
+   .s-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--board);border:1px solid var(--line);border-radius:12px;padding:11px 13px;cursor:pointer;color:var(--ink);font-family:inherit;font-size:13.5px;transition:border-color .15s,background .15s,transform .1s;box-shadow:var(--card-sh)}
+   .s-item:hover{border-color:var(--accent);background:var(--soft);transform:translateX(2px)}
+   .s-type{flex:0 0 auto;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:3px 8px;border-radius:7px}
+   .s-type.t-konu{background:var(--blue-t);color:var(--blue)}
+   .s-type.t-soru{background:var(--teal-t);color:var(--teal)}
+   .s-type.t-test{background:var(--purple-t);color:var(--purple)}
+   .s-type.t-not{background:var(--orange-t);color:var(--orange)}
+   .s-type.t-klasik{background:var(--bad-t);color:var(--bad)}
+   .s-title{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+   @media(max-width:520px){
+     .s-input{font-size:15px}
+     .s-title{white-space:normal}
+   }
+   </style>
 </head>
 <body>
 <div class="liquid-bg">
@@ -690,7 +728,8 @@ const NAV=[
   {id:'dersler',t:'Dersler',ic:'📚'},
   {id:'sinav',t:'Sınav Modu',ic:'🎯'},
   {id:'yanlis',t:'Yanlışlarım',ic:'🚩'},
-  {id:'istatistik',t:'İstatistik',ic:'📊'}
+  {id:'istatistik',t:'İstatistik',ic:'📊'},
+  {id:'ara',t:'Ara',ic:'🔍'}
 ];
 const SUBJ_META={
   elec:{name:'Dijital Elektronik',ic:'⚡',tone:'amber'},
@@ -1313,7 +1352,7 @@ function openLit(m=1){curC='lit';litMod=m;render();window.scrollTo({top:0,behavi
  function hashRoute(){
    const h=(location.hash||'').replace('#','');
    if(!h)return;
-   const valid=['home','dersler','sinav','yanlis','istatistik','math','elec','din','lit'];
+    const valid=['home','dersler','sinav','yanlis','istatistik','ara','math','elec','din','lit'];
    if(valid.includes(h)&&h!==curC){curC=h;render();}
  }
 
@@ -1342,10 +1381,13 @@ function render(){
   else if(curC==='yanlis'){
     renderYanlislarim();
   }
-  else if(curC==='istatistik'){
-    renderIstatistik();
-  }
-  else if(curC==='math'){
+   else if(curC==='istatistik'){
+     renderIstatistik();
+   }
+   else if(curC==='ara'){
+     renderAra();
+   }
+   else if(curC==='math'){
     const exN=['1. Sınav: Fonksiyon & Eğim','2. Sınav: Asal Çarpanlar','2. Dönem 1. Sınav','2. Dönem 2. Sınav'];
     m.innerHTML=`<div class="exam-bar"><span class="lbl">📐 Matematik Dersi — Sınav Seçimi</span><div class="row-s">${exN.map((n,i)=>`<button class="ebtn ${curEx===i+1?'active':''}" onclick="curEx=${i+1};curMod=1;mathView=1;render()">${i<2?'📝 '+n:'🔒 '+n}</button>`).join('')}</div></div>`
     +(curEx===1||curEx===2?`<div id="m-app"></div>`
@@ -1641,6 +1683,99 @@ function renderIstatistik(){
     <div class="exam-cfg"><h3>Sınav Geçmişi</h3>${histHtml}</div>
     ${wCount?`<div class="exam-cfg"><h3>🚩 Yanlışlarım</h3><p>${wCount} soruyu tekrar ederek zayıf konularını güçlendirebilirsin.</p><button class="cmd-cta" style="width:100%;justify-content:center" onclick="startWrongExam()">Yanlışları Tekrar Et ▶</button></div>`:''}
   </div>`;
+}
+/* ===== ARAMA (Search) — tüm içerik indeksinde anında arama ===== */
+let SEARCH_INDEX=[];
+function normTR(s){return (s||'').toLocaleLowerCase('tr').replace(/ı/g,'i').replace(/ş/g,'s').replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ö/g,'o').replace(/ç/g,'c');}
+function stripHTML(s){return (s||'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();}
+function buildSearchIndex(){
+  const idx=[];
+  const add=(subj,type,title,text,go)=>{const ct=stripHTML(title);idx.push({subj,type,title:ct,text:normTR(ct+' '+(text||'')),go});};
+  try{
+    (typeof topics!=='undefined'?topics:[]).forEach(t=>add('math','Konu',t.t,stripHTML(t.r),'math'));
+    (typeof topics2!=='undefined'?topics2:[]).forEach(t=>add('math','Konu',t.t,stripHTML(t.r),'math'));
+    (typeof elecBlanks!=='undefined'?elecBlanks:[]).forEach(b=>add('elec','Soru',b.b,b.a+' '+(b.f||''),'elec'));
+    (typeof pdfQuizList!=='undefined'?pdfQuizList:[]).forEach(q=>add('elec','Test',q.q,q.exp||'','elec'));
+    (typeof elecClassic!=='undefined'?elecClassic:[]).forEach(q=>add('elec','Klasik',q.q,stripHTML(q.a),'elec'));
+    (typeof dinNotes!=='undefined'?dinNotes:[]).forEach(n=>add('din','Not',n.title,stripHTML((n.text||'')+' '+(n.list||[]).join(' ')),'din'));
+    (typeof dinBlanks!=='undefined'?dinBlanks:[]).forEach(b=>add('din','Soru',b.before,b.ans+' '+(b.after||''),'din'));
+    (typeof dinQuiz!=='undefined'?dinQuiz:[]).forEach(q=>add('din','Test',q.q,(q.opts||[]).join(' '),'din'));
+    (typeof dinTF!=='undefined'?dinTF:[]).forEach(q=>add('din','Test',q.q,q.exp||'','din'));
+    (typeof dinClassicQs!=='undefined'?dinClassicQs:[]).forEach(q=>add('din','Klasik',q.q,stripHTML(q.a),'din'));
+    (typeof litMatchData!=='undefined'?litMatchData:[]).forEach(mm=>add('lit','Soru',mm.desc,mm.ans,'lit'));
+    (typeof litFiilimsiData!=='undefined'?litFiilimsiData:[]).forEach(f=>add('lit','Konu',f.word+' — '+f.type,f.exp||'','lit'));
+    (typeof litQuizList!=='undefined'?litQuizList:[]).forEach(q=>add('lit','Test',q.q,q.exp||'','lit'));
+    (typeof litDynPool!=='undefined'?litDynPool:[]).forEach(q=>add('lit','Test',q.q,q.exp||'','lit'));
+    (typeof litClassicQs!=='undefined'?litClassicQs:[]).forEach(q=>add('lit','Klasik',q.q,stripHTML(q.a),'lit'));
+  }catch(e){console.warn('buildSearchIndex hatası',e);}
+  SEARCH_INDEX=idx;
+}
+let searchQ='';
+function renderAra(){
+  const m=document.getElementById('main-view');
+  m.innerHTML=`<div class="dash">
+    <div class="s-wrap">
+      <div class="s-inputrow">
+        <span class="s-ic">🔍</span>
+        <input id="s-input" class="s-input" type="text" placeholder="Konu, soru veya anahtar kelime ara…" autocomplete="off" oninput="onSearchInput(this.value)">
+        <button id="s-clear" class="s-clear" onclick="clearSearch()" style="display:none">✕</button>
+      </div>
+      <div id="s-count" class="s-count"></div>
+      <div id="s-body" class="s-body"></div>
+    </div>
+  </div>`;
+  const inp=document.getElementById('s-input');
+  if(inp)inp.focus();
+  renderSearchBody(searchQ);
+}
+function onSearchInput(v){searchQ=v;renderSearchBody(v);}
+function clearSearch(){const i=document.getElementById('s-input');searchQ='';if(i){i.value='';i.focus();}renderSearchBody('');}
+function goSearch(subj){setC(subj);}
+function renderSearchBody(q){
+  const count=document.getElementById('s-count');
+  const body=document.getElementById('s-body');
+  const clear=document.getElementById('s-clear');
+  if(!count||!body)return;
+  if(clear)clear.style.display=q?'':'none';
+  const nq=normTR(q).trim();
+  const subjName={math:'Matematik',elec:'Dijital Elektronik',din:'Din Kültürü',lit:'Türk Dili ve Edebiyatı'};
+  const subjTone={math:'blue',elec:'amber',din:'teal',lit:'purple'};
+  const subjIc={math:'📐',elec:'⚡',din:'🕋',lit:'📚'};
+  if(!nq){
+    count.textContent='4 dersteki tüm içerik indekslenmiş';
+    body.innerHTML=`<div class="s-empty"><div class="s-empty-ic">🔍</div><h3>İçerikte Ara</h3><p>Konu özetleri, test soruları, klasik sorular ve notlar arasında anında ara. Örnek: <strong>eğim</strong>, <strong>Karagöz</strong>, <strong>Bakara</strong>, <strong>asal çarpan</strong>, <strong>fiilimsi</strong>.</p></div>`;
+    return;
+  }
+  const terms=nq.split(/\s+/).filter(Boolean);
+  const scored=[];
+  SEARCH_INDEX.forEach(e=>{
+    let score=0;
+    const titleN=normTR(e.title);
+    for(const t of terms){
+      if(e.text.includes(t))score+=10;
+      if(titleN.includes(t))score+=6;
+    }
+    if(score>0)scored.push({e,score});
+  });
+  scored.sort((a,b)=>b.score-a.score);
+  const res=scored.slice(0,40).map(x=>x.e);
+  count.textContent=res.length+' sonuç';
+  if(!res.length){
+    body.innerHTML=`<div class="s-empty"><div class="s-empty-ic">🤷</div><h3>Sonuç bulunamadı</h3><p><strong>${q.replace(/</g,'&lt;')}</strong> için sonuç yok. Farklı bir anahtar kelime dene.</p></div>`;
+    return;
+  }
+  const grouped={};
+  res.forEach(e=>{(grouped[e.subj]=grouped[e.subj]||[]).push(e);});
+  body.innerHTML=Object.keys(grouped).map(sj=>`
+    <div class="s-group">
+      <div class="s-group-hd"><span class="s-group-ic ${subjTone[sj]}">${subjIc[sj]}</span><h3>${subjName[sj]}</h3><span class="s-group-n">${grouped[sj].length}</span></div>
+      <div class="s-list">${grouped[sj].map(e=>`
+        <button class="s-item" onclick="goSearch('${e.subj}')">
+          <span class="s-type t-${e.type.toLowerCase()}">${e.type}</span>
+          <span class="s-title">${e.title}</span>
+        </button>`).join('')}
+      </div>
+    </div>`).join('');
 }
 function renderYanlislarim(){
   const m=document.getElementById('main-view');
@@ -3436,7 +3571,9 @@ function ansLitQ(qIdx, oIdx){
   if(oIdx === item.ans){ btn.classList.add('ok'); fb.className = 'fb ok'; fb.innerHTML = '🎉 Doğru! ' + item.exp; }
   else { btn.classList.add('err'); document.getElementById(`lq-${qIdx}-${item.ans}`).classList.add('ok'); fb.className = 'fb err'; fb.innerHTML = '❌ Yanlış. ' + item.exp; }
 }
-window.onload=()=>{initTheme();loadState();setupBackToTop();hashRoute();render();};
+window.onload=()=>{initTheme();loadState();setupBackToTop();buildSearchIndex();hashRoute();render();
+  if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}
+};
 window.addEventListener('hashchange',hashRoute);
 </script>
 </body>
